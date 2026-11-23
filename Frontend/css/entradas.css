@@ -1,0 +1,190 @@
+:root {
+    --font-family-base: 'Stack Sans Text', sans-serif;
+    --theme-black: #0C1014;
+    --theme-blue: #277dff;
+    --theme-yellow: #ffc200;
+    --theme-white: #ffffff;
+    --theme-gray: #171B1F;
+    --theme-light-gray: #212529;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--theme-black)    ;
+    margin: 0;
+}
+
+html {
+    background-color: var(--theme-black);
+    scroll-behavior: smooth;
+}
+
+section {
+    scroll-margin-top: 80px;
+}
+
+#main-navbar {
+    background-color: var(--theme-black);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+#top-navbar{
+    background-color: var(--theme-black);
+}
+
+.nav-links {
+    font-weight: 600;
+    color: var(--theme-white);
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-links:hover {
+    color: var(--theme-blue);
+}
+
+#img-logo {
+    max-width: 120px;
+    width: 100%;
+}
+
+.tickets-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    color: var(--theme-white);
+    background-color: var(--theme-gray);
+}
+
+#tickets-header h1 {
+    margin: 0px;
+    font-size: 1.8rem;
+}
+
+.event-subtitle {
+    margin: 0.3rem 0 1.5rem 0;
+    color: var(--theme-white);
+    font-size: 0.8rem;
+}
+
+#tickets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#tickets-header .back-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--theme-white);
+    text-decoration: none;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    transition: color 0.2s ease;
+}
+
+#tickets-header .back-tag:hover{
+    color: var(--theme-blue);
+}
+
+.ticket-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background-color: var(--theme-light-gray);
+    border: 1px solid transparent;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transition: border-color 0.2s ease, transform 0.15s ease;
+}
+
+.ticket-card:hover {
+    border-color: var(--theme-blue);
+    transform: translateY(-2px);
+}
+
+#tickets-container {
+    background-color: var(--theme-gray);
+    border: solid 1px var(--theme-light-gray);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    border-radius: 15px;
+    padding: 2rem;
+    max-width: 500px;
+    height: auto;
+}
+
+.ticket-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.ticket-price {
+    color: var(--theme-yellow);
+}
+
+.ticket-qty {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background-color: var(--theme-black);
+    padding: 0.4rem 0.6rem;
+    border-radius: 8px;
+}
+
+.qty-btn {
+    background-color: var(--theme-gray);
+    color: var(--theme-white);
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.qty-btn:hover {
+    background-color: var(--theme-blue);
+}
+
+.qty-value {
+    min-width: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.btn-cart-action {
+    width: 100%;
+    background-color: var(--theme-blue);
+    color: var(--theme-white);
+    border: none;
+    padding: 0.95rem 1.5rem;
+    border-radius: 10px;
+    font-family: var(--font-family-base);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    transition: background-color 0.2s ease, transform 0.15s ease, opacity 0.2s ease;
+}
+
+.btn-cart-action:hover:not(:disabled) {
+    background-color: #1b66d6;
+    transform: translateY(-2px);
+}
+
+.btn-cart-action:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}

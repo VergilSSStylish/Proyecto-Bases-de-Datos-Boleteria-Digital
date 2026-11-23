@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CityBox | Mis tickets</title>
+    <script src="https://kit.fontawesome.com/21d7f36c31.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tickets.css">
+</head>
+<body>
+
+    <!-----barra de navegación------>
+    <nav class="navbar navbar-expand-lg py-3 py-lg-0 shadow" id="main-navbar">
+        <div class="container px-4">
+            <div onclick="location.href='index.html'" style="cursor: pointer;">
+                <img src="assets/logoblanco.png" alt="logo" id="img-logo">
+            </div>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-navbar" aria-controls="top-navbar">
+                <i class="fa-solid fa-bars" style="font-size: larger; color: white;"></i>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="top-navbar" aria-labelledby="top-navbarLabel">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-navbar" aria-controls="top-navbar">
+                    <div class="d-flex justify-content-between p-3 align-items-center">
+                        <img src="assets/logoblanco.png" alt="logo" class="img-logo-mobile">
+                        <i class="fa-regular fa-circle-xmark" style="font-size: larger; color: white;"></i>
+                    </div>
+                </button>
+                <ul class="navbar-nav ms-lg-auto p-4 p-lg-0 align-items-center" style="font-size: 1.2rem">
+                    <li class="nav-item px-3 px-lg-2 py-1 py-lg-4">
+                        <a class="nav-links" href="eventos.html" id="link-eventos">Explora eventos</a>
+                    </li>
+                    <li class="nav-item px-3 px-lg-2 py-1 py-lg-4">
+                        <a class="nav-links" href="tickets.html" id="link-tickets">Mis tickets</a>
+                    </li>
+                    <li class="nav-item px-3 px-lg-2 py-1 py-lg-4">
+                        <a class="nav-links" href="cuenta.html" id="link-cuenta">Mi cuenta</a>
+                    </li>
+                    <li class="nav-item px-3 px-lg-2 py-1 py-lg-4">
+                        <a class="nav-links position-relative" href="carrito.html" id="link-carrito" title="Ver carrito">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span id="cart-badge" class="cart-badge">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--sección principal con todos los tickets-->
+    <section class="tickets-section">
+        <div class="tickets-container">
+            <div class="tickets-card">
+                
+                <!--botones de filtros activo/pasado-->
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-ticket"></i> Mis tickets</h2>
+                    
+                    <div id="ticket-filters" class="filter-buttons">
+                        <button type="button" class="filter-btn active" data-filter="all">Todos</button>
+                        <button type="button" class="filter-btn" data-filter="active">Activos</button>
+                        <button type="button" class="filter-btn" data-filter="past">Pasados</button>
+                    </div>
+                </div>
+
+                <!--container donde se renderizarán los tickets desde la BD-->
+                <div id="purchased-tickets-list" class="items-list">
+                    
+                    <!--ejemplo de ticket evento activo-->
+                    <div class="purchased-ticket-item" data-status="active">
+                        <div class="ticket-main">
+                            <span class="ticket-order-id">Orden #00124</span>
+                            <h3 class="ticket-event-name">Nombre del Evento</h3>
+                            <p class="ticket-info">
+                                <i class="fa-solid fa-calendar-days"></i> Fecha del evento • 
+                                <i class="fa-solid fa-location-dot"></i> Nombre del Recinto
+                            </p>
+                            <div class="ticket-badges">
+                                <span class="badge-zone">Zona VIP (x2)</span>
+                                <span class="badge-status active">Activo</span>
+                            </div>
+                        </div>
+                        <div class="ticket-actions">
+                            <button type="button" class="btn-view-qr">
+                                <i class="fa-solid fa-qrcode"></i> Ver entrada
+                            </button>
+                        </div>
+                    </div>
+
+                    <!--ejemplo de ticket evento pasado-->
+                    <div class="purchased-ticket-item past-ticket" data-status="past">
+                        <div class="ticket-main">
+                            <span class="ticket-order-id">Orden #00098</span>
+                            <h3 class="ticket-event-name">Nombre del Evento Anterior</h3>
+                            <p class="ticket-info">
+                                <i class="fa-solid fa-calendar-days"></i> Fecha pasada • 
+                                <i class="fa-solid fa-location-dot"></i> Nombre del Recinto
+                            </p>
+                            <div class="ticket-badges">
+                                <span class="badge-zone">General (x1)</span>
+                                <span class="badge-status used">Utilizado</span>
+                            </div>
+                        </div>
+                        <div class="ticket-actions">
+                            <button type="button" class="btn-view-qr" disabled>
+                                <i class="fa-solid fa-qrcode"></i> Ver entrada
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--modal para ver el código qr en ver entrada-->
+    <div id="qr-modal" class="modal-overlay">
+        <div class="modal-box qr-modal-box">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-qrcode"></i> Entrada Digital</h3>
+                <button type="button" id="btn-close-qr-modal" class="btn-close-modal" title="Cerrar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="qr-ticket-content">
+                <span id="modal-qr-order" class="qr-order-tag">Orden #00124</span>
+                <h4 id="modal-qr-event" class="qr-event-title">Nombre del Evento</h4>
+                <p id="modal-qr-meta" class="qr-event-meta">
+                    <i class="fa-solid fa-calendar-days"></i> Fecha del evento • 
+                    <i class="fa-solid fa-location-dot"></i> Nombre del Recinto
+                </p>
+
+                <!--contenedor del qr-->
+                <div class="qr-code-wrapper">
+                    <!--temporalmente es un ícono, se cambiará por el qr de la bd-->
+                    <i class="fa-solid fa-qrcode qr-placeholder-icon"></i>
+                </div>
+                <div class="qr-ticket-footer">
+                    <span id="modal-qr-zone" class="badge-zone">Zona VIP (x2)</span>
+                    <p class="qr-hint">Presenta este código en el acceso del recinto.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="js/ticketscript.js"></script>
+</body>
+</html>

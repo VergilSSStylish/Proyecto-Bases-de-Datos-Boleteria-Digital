@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | CityBox Tickets</title>
+    <script src="https://kit.fontawesome.com/21d7f36c31.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <!---sección de login-->
+    <section id="login-section">
+        <div class="container shadow p-4 rounded auth-card" id="container-login">
+            <div class="row py-2">
+                <div class="col">
+                    <img src="assets/logoblanco.png" alt="icono" class="d-block mx-auto mb-4" style="width: 100px;">
+                    <h2 class="fw-bold text-center pt-1">Bienvenido</h2>
+                    <form action="#">
+                        <div class="mb-4">
+                            <label for="email" class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" name="email">
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" name="password">
+                        </div>
+                        <div class="mb-4 form-check d-flex justify-content-between flex-wrap gap-2">
+                            <div class="text-start">
+                                <input type="checkbox" name="connected" class="form-check-input">
+                                <label for="connected" class="form-check-label">Recordarme</label>
+                            </div>
+                            <div class="text-end">
+                                <a href="#">¿Olvidaste tu contraseña?</a>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg mt-3" id="button-login">Iniciar sesión</button>
+                        </div>
+                        <div class="my-3 d-flex justify-content-between flex-wrap gap-2">
+                            <div class="text-start">
+                                <span>¿No estás registrado?</span>
+                            </div>
+                            <div class="text-end">
+                                <a href="#" onclick="mostrarRegistro()">Crear una cuenta</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!---sección de registro-->
+    <section id="register-section" style="display: none;">
+        <div class="container shadow p-4 rounded auth-card register-card" id="container-register">
+            <div class="row py-5">
+                <div class="col">
+                    <img src="assets/logoblanco.png" alt="icono" class="d-block mx-auto mb-4" style="width: 100px;">
+                    <h2 class="fw-bold text-center pt-1">Crear una cuenta</h2>
+
+                    <!--inicio del formulario-->
+                    <form action="#" id="form-register">
+
+                        <!--nombres-->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="pnombre" class="form-label">Primer nombre *</label>
+                                <input type="text" name="pnombre" id="pnombre" class="form-control" maxlength="100" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="snombre" class="form-label">Segundo nombre</label>
+                                <input type="text" name="snombre" id="snombre" class="form-control" maxlength="100">
+                            </div>
+                        </div>
+
+                        <!--apellidos-->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="papellido" class="form-label">Primer apellido *</label>
+                                <input type="text" name="papellido" id="papellido" class="form-control" maxlength="100" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="sapellido" class="form-label">Segundo apellido</label>
+                                <input type="text" name="sapellido" id="sapellido" class="form-control" maxlength="100">
+                            </div>
+                        </div>
+
+                        <!--contacto-->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="correo" class="form-label">Correo electrónico *</label>
+                                <input type="email" class="form-control" name="correo" id="correo" maxlength="100" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="telefono" class="form-label">Teléfono *</label>
+                                <input type="tel" class="form-control" name="telefono" id="telefono" maxlength="20" required>
+                            </div>
+                        </div>
+
+                        <!---fecha y género-->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="fechanac" class="form-label">Fecha de nacimiento *</label>
+                                <input type="date" class="form-control" name="fechanac" id="fechanac" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="genero" class="form-label">Género *</label>
+                                <select class="form-select" name="genero" id="genero" maxlength="100" required>
+                                    <option value="" selected>Seleccionar...</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                </select>
+                            </div>
+                            <div class="col mb-3">
+                                <label for="RTN" class="form-label">RTN (Opcional)</label>
+                                <input type="text" class="form-control" id="RTN" name="RTN" maxlength="14" placeholder="14 dígitos">
+                            </div>
+                        </div>
+
+                        <!---contraseña-->
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label for="password" class="form-label">Contraseña *</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label for="confirm-password" class="form-label">Repetir contraseña *</label>
+                                <input type="password" class="form-control" id="confirm-password" required>
+                                <div class="invalid-feedback">
+                                    Las contraseñas no coinciden.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg mt-3" id="button-register">Crear cuenta</button>
+                        </div>
+                        <div class="my-3 d-flex justify-content-between">
+                            <div class="text-start">
+                                <span>¿Ya estás registrado?</span>
+                                
+                            </div>
+                            <div class="text-end">
+                                <a href="#" onclick="mostrarLogin();">Inicia sesión</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/loginscript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

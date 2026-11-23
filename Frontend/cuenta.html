@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CityBox | Mi cuenta</title>
+    <script src="https://kit.fontawesome.com/21d7f36c31.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/cuenta.css">
+</head>
+<body>
+
+    <!-----barra de navegación------>
+    <nav class="navbar navbar-expand-lg py-3 py-lg-0 shadow" id="main-navbar">
+        <div class="container px-4">
+            <div onclick="location.href='index.html'" style="cursor: pointer;">
+                <img src="assets/logoblanco.png" alt="logo" id="img-logo">
+            </div>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-navbar" aria-controls="top-navbar">
+                <i class="fa-solid fa-bars" style="font-size: larger; color: white;"></i>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="top-navbar" aria-labelledby="top-navbarLabel">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-navbar" aria-controls="top-navbar">
+                    <div class="d-flex justify-content-between p-3 align-items-center">
+                        <img src="assets/logoblanco.png" alt="logo" id="img-logo-mobile">
+                        <i class="fa-regular fa-circle-xmark" style="font-size: larger; color: white;"></i>
+                    </div>
+                </button>
+                <ul class="navbar-nav ms-lg-auto p-4 p-lg-0 align-items-center" style="font-size: 1.2rem">
+                    <li class="nav-item px-3 px-lg-2 py-1 py-lg-4">
+                        <a class="nav-links" href="eventos.html" id="link-eventos">Explora eventos</a>
+                    </li>
+                    <li class="nav-item px-3 px-lg-2 py-1 py-lg-4">
+                        <a class="nav-links" href="tickets.html" id="link-tickets">Mis tickets</a>
+                    </li>
+                    <li class="nav-item px-3 px-lg-2 py-1 py-lg-4">
+                        <div>
+                            <a class="nav-links"  href="cuenta.html" id="link-cuenta">Mi cuenta</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección principal de Mi Cuenta -->
+    <section class="profile-section">
+        <div class="profile-container">
+
+            <!--datos del usuario, de la tabla usuarios bd-->
+            <div class="profile-header">
+                <div class="profile-user-info">
+                    <div class="user-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div>
+                        <h1 id="profile-name">Nombre del Usuario</h1>
+                        <p id="profile-email" class="user-email">usuario@correo.com</p>
+                    </div>
+                </div>
+
+                <button type="button" id="btn-logout" class="btn-logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                </button>
+            </div>
+
+            <!--sección principal-->
+            <div class="profile-grid">
+
+                <!--métodos de pago guardados-->
+                <div class="profile-card">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-credit-card"></i> Métodos de pago</h2>
+                        <button type="button" id="btn-add-payment" class="btn-small">
+                            <i class="fa-solid fa-plus"></i> Agregar
+                        </button>
+                    </div>
+
+                    <!--aquí se renderizarán los métodos guardados de la bd-->
+                    <div id="payment-methods-list" class="items-list">
+                        
+                        <!--plantillas de tarjeta-->
+                        <div class="payment-item">
+                            <div class="payment-details">
+                                <i class="fa-brands fa-cc-visa payment-icon"></i>
+                                <div>
+                                    <p class="payment-title">Visa terminada en •••• 4589</p>
+                                    <span class="payment-expiry">Expira: 08/28</span>
+                                </div>
+                            </div>
+                            <button type="button" class="btn-icon-delete" title="Eliminar método">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                        
+                        <!--otro ejemplo de plantilla de tarjeta-->
+                        <div class="payment-item">
+                            <div class="payment-details">
+                                <i class="fa-brands fa-cc-mastercard payment-icon"></i>
+                                <div>
+                                    <p class="payment-title">Mastercard terminada en •••• 1024</p>
+                                    <span class="payment-expiry">Expira: 11/27</span>
+                                </div>
+                            </div>
+                            <button type="button" class="btn-icon-delete" title="Eliminar método">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--tickets ya comprados por el usuario, de tabla orden/usuarios, redirige a otra pantalla tickets-->
+                <div class="profile-card">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-ticket"></i> Mis tickets comprados</h2>
+                        <a href="tickets.html" class="btn-history">Ver todos</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!--ventana modal para agregar método de pago -->
+    <div id="payment-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-credit-card"></i> Nuevo método de pago</h3>
+                <button type="button" id="btn-close-payment-modal" class="btn-close-modal" title="cerrar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="add-payment-form" class="modal-form">
+                <div class="form-group">
+                    <label for="card-holder">Nombre del titular</label>
+                    <input type="text" id="card-holder" placeholder="Como aparece en la tarjeta" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="card-number">Número de tarjeta</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fa-regular fa-credit-card"></i>
+                        <input type="text" id="card-number" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                    </div>
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label for="card-expiry">Expiración (MM/AA)</label>
+                        <input type="text" id="card-expiry" placeholder="MM/AA" maxlength="5" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="card-cvv">CVV</label>
+                        <input type="password" id="card-cvv" placeholder="•••" maxlength="4" required>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" id="btn-cancel-payment" class="btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn-primary-modal">Guardar tarjeta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/cuentascript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
