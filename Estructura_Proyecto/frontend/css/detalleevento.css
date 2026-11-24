@@ -1,0 +1,229 @@
+:root {
+    --font-family-base: 'Stack Sans Text', sans-serif;
+    --theme-black: #0C1014;
+    --theme-blue: #277dff;
+    --theme-yellow: #ffc200;
+    --theme-white: #ffffff;
+    --theme-gray: #171B1F;
+    --theme-light-gray: #212529;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--theme-black)    ;
+    margin: 0;
+}
+
+html {
+    background-color: var(--theme-black);
+    scroll-behavior: smooth;
+}
+
+section {
+    scroll-margin-top: 80px;
+}
+
+#main-navbar {
+    background-color: var(--theme-black);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+#top-navbar{
+    background-color: var(--theme-black);
+}
+
+.nav-links {
+    font-weight: 600;
+    color: var(--theme-white);
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-links:hover {
+    color: var(--theme-blue);
+}
+
+#img-logo {
+    max-width: 120px;
+    width: 100%;
+}
+
+.event-detail-section {
+    padding: 2rem 1rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    color: var(--theme-white);
+}
+
+.event-container {
+    background-color: var(--theme-gray);
+    border: 1px solid var(--theme-light-gray);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.event-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+}
+
+.event-poster {
+    flex: 1 1 280px; 
+    max-width: 340px;
+    margin: 0 auto;
+}
+
+.event-poster img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.event-main-info {
+    flex: 2 1 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.status {
+    background-color: rgba(39, 125, 255, 0.15);
+    color: var(--theme-blue);
+    border: 1px solid var(--theme-blue);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+#detail-title {
+    font-size: 5rem;
+    font-weight: 800;
+}
+
+.event-main-info h1 {
+    margin: 0;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    line-height: 1.2;
+}
+
+.event-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.event-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1rem;
+    color: #d1d5db;
+}
+
+.event-list i {
+    color: var(--theme-blue);
+    width: 20px;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: var(--theme-blue);
+    color: var(--theme-white);
+    border: none;
+    padding: 0.9rem 2rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-primary:hover {
+    background-color: #1b66d6;
+    transform: translateY(-2px);
+}
+
+.event-body {
+    border-top: 1px solid var(--theme-light-gray);
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.event-description h3 {
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+    font-size: 1.3rem;
+}
+
+.event-description p {
+    margin: 0;
+    line-height: 1.6;
+    color: #d1d5db;
+}
+
+.event-specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.spec-card {
+    background-color: var(--theme-black);
+    border: 1px solid var(--theme-light-gray);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.spec-card i {
+    font-size: 1.4rem;
+    color: var(--theme-yellow);
+}
+
+.spec-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+.spec-value {
+    margin: 0.2rem 0 0 0;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 600px) {
+    .event-container {
+        padding: 1.2rem;
+    }
+
+    .btn-primary {
+        width: 100%;
+        justify-content: center;
+    }
+}

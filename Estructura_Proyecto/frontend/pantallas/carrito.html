@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CityBox | Carrito de Compra</title>
+    <script src="https://kit.fontawesome.com/21d7f36c31.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/carrito.css">
+</head>
+<body>
+
+    <!-----barra de navegación------>
+    <nav class="navbar navbar-expand-lg py-3 py-lg-0 shadow" id="main-navbar">
+        <div class="container px-4">
+            <div onclick="location.href='index.html'" style="cursor: pointer;">
+                <img src="assets/logoblanco.png" alt="logo" id="img-logo">
+            </div>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-navbar" aria-controls="top-navbar">
+                <i class="fa-solid fa-bars" style="font-size: larger; color: white;"></i>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="top-navbar" aria-labelledby="top-navbarLabel">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-navbar" aria-controls="top-navbar">
+                    <div class="d-flex justify-content-between p-3 align-items-center">
+                        <img src="assets/logoblanco.png" alt="logo" class="img-logo-mobile">
+                        <i class="fa-regular fa-circle-xmark" style="font-size: larger; color: white;"></i>
+                    </div>
+                </button>
+                <ul class="navbar-nav ms-lg-auto p-4 p-lg-0 align-items-center" style="font-size: 1.2rem">
+                    <li class="nav-item px-3 px-lg-2 py-1 py-lg-4">
+                        <a class="nav-links" href="eventos.html" id="link-eventos">Explora eventos</a>
+                    </li>
+                    <li class="nav-item px-3 px-lg-2 py-1 py-lg-4">
+                        <a class="nav-links" href="tickets.html" id="link-tickets">Mis tickets</a>
+                    </li>
+                    <li class="nav-item px-3 px-lg-2 py-1 py-lg-4">
+                        <a class="nav-links" href="cuenta.html" id="link-cuenta">Mi cuenta</a>
+                    </li>
+                    <li class="nav-item px-3 px-lg-2 py-1 py-lg-4">
+                        <a class="nav-links position-relative" href="carrito.html" id="link-carrito" title="Ver carrito">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span id="cart-badge" class="cart-badge">2</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--sección principal del carrito-->
+    <section class="cart-section">
+        <div class="cart-wrapper">
+            
+            <!--banner temporizador de reserva (expiración en bd) -->
+            <div id="reservation-timer-banner" class="timer-banner">
+                <i class="fa-solid fa-hourglass-half"></i>
+                <!--se sacará el tiempo de la bd-->
+                <span>Tienes para completar tu compra: <strong id="timer-countdown">10:00</strong></span>
+            </div>
+
+            <div class="cart-grid">
+                
+                <!--lista de boletos reservados-->
+                <div class="cart-items-box">
+                    <div class="cart-box-header">
+                        <h2><i class="fa-solid fa-cart-shopping"></i> Tu Carrito</h2>
+                        <a href="eventos.html" class="continue-link">+ Seguir explorando</a>
+                    </div>
+
+                    <!--se renderizarán los ítems desde la bd/reserva-->
+                    <div id="cart-items-list" class="items-list">
+                        
+                        <!--plantilla de ítem 1-->
+                        <div class="cart-item">
+                            <div class="cart-item-info">
+                                <span class="item-event-title">Nombre del Evento</span>
+                                <p class="item-zone">Zona VIP • 2 entrada(s)</p>
+                                <span class="item-meta">
+                                    <i class="fa-solid fa-calendar-days"></i> Fecha del evento • 
+                                    <i class="fa-solid fa-location-dot"></i> Nombre del Recinto
+                                </span>
+                            </div>
+                            <div class="cart-item-actions">
+                                <span class="item-subtotal">L 2,000.00</span>
+                                <button type="button" class="btn-remove" title="Eliminar entrada">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!--plantilla de ítem 2-->
+                        <div class="cart-item">
+                            <div class="cart-item-info">
+                                <span class="item-event-title">Nombre del Evento</span>
+                                <p class="item-zone">General • 1 entrada(s)</p>
+                                <span class="item-meta">
+                                    <i class="fa-solid fa-calendar-days"></i> Fecha del evento • 
+                                    <i class="fa-solid fa-location-dot"></i> Nombre del Recinto
+                                </span>
+                            </div>
+                            <div class="cart-item-actions">
+                                <span class="item-subtotal">L 500.00</span>
+                                <button type="button" class="btn-remove" title="Eliminar entrada">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--resumen de Orden, descuentos y pago -->
+                <div class="cart-summary-box">
+                    <h3>Resumen de Orden</h3>
+
+                    <!--selector de tipo de descuento (tabla DetalleOrden/IDTipoDescuento) -->
+                    <div class="form-group-cart">
+                        <label for="discount-select">Tipo de descuento</label>
+                        <select id="discount-select" class="form-select-dark">
+                            <option value="0" data-percent="0">Ninguno (0%)</option>
+                            <option value="1" data-percent="0.25">Tercera Edad (25%)</option>
+                            <option value="2" data-percent="0.10">Promoción / Estudiante (10%)</option>
+                        </select>
+                    </div>
+
+                    <!--selector de método de pago guardado, estará conectado con los métodos de cuenta.html-->
+                    <div class="form-group-cart">
+                        <div class="label-row">
+                            <label for="payment-method-select">Método de pago</label>
+                            <a href="cuenta.html" class="manage-cards-link">Gestionar</a>
+                        </div>
+                        <select id="payment-method-select" class="form-select-dark">
+                            <option value="1">Visa terminada en •••• 4589</option>
+                            <option value="2">Mastercard terminada en •••• 1024</option>
+                        </select>
+                    </div>
+
+                    <!--resumen del detalle orden-->
+                    <div class="summary-details">
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span id="summary-subtotal">L 2,500.00</span>
+                        </div>
+                        <div class="summary-row discount-row">
+                            <span>Descuento aplicado</span>
+                            <span id="summary-discount">- L 0.00</span>
+                        </div>
+                        <div class="summary-row total-row">
+                            <span>Total a pagar</span>
+                            <span id="summary-total">L 2,500.00</span>
+                        </div>
+                    </div>
+
+                    <button type="button" id="btn-confirm-order" class="btn-confirm-purchase">
+                        <i class="fa-solid fa-lock"></i> Confirmar Compra
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

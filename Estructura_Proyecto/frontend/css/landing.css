@@ -1,0 +1,141 @@
+:root {
+    --font-family-base: 'Stack Sans Text', sans-serif;
+    --theme-black: #0C1014;
+    --theme-blue: #277dff;
+    --theme-yellow: #ffc200;
+    --theme-white: #ffffff;
+    --theme-gray: #171B1F;
+    --theme-light-gray: #212529;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--theme-black)    ;
+    margin: 0;
+}
+
+html {
+    background-color: var(--theme-black);
+    scroll-behavior: smooth;
+}
+
+section {
+    scroll-margin-top: 80px;
+}
+
+#main-navbar {
+    background-color: var(--theme-black);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+#top-navbar{
+    background-color: var(--theme-black);
+}
+
+.nav-links {
+    font-weight: 600;
+    color: var(--theme-white);
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-links:hover {
+    color: var(--theme-blue);
+}
+
+#img-logo {
+    max-width: 120px;
+    width: 100%;
+}
+
+#landing-section h1 {
+    color: var(--theme-white);
+    font-size: 5.5rem;
+    font-weight: bold;
+}
+
+#landing-section h2 {
+    color: var(--theme-white);
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.info-container {
+    color: var(--theme-white);
+    font-size: 1.5rem;
+}
+
+#button-login {
+    margin: 0px;
+    align-items: center;
+}
+
+.event-header {
+    color: var(--theme-white);
+    text-align: left;
+    padding-left: 2rem;
+    margin: 0px;
+}
+
+.event-card {
+    border: 1px solid var(--theme-light-gray);
+    border-radius: 15px;
+    background-color: var(--theme-gray);
+    color: var(--theme-white);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+}
+
+.event-card img {
+    width: 100%;
+    height: 500px; 
+    object-fit: cover; 
+    display: block;
+}
+
+.events-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    padding-top: 0;
+}
+
+.event-info {
+    margin-top: 1rem;
+}
+
+.event-info .event-category {
+    margin-bottom: 0px;
+    color: var(--theme-blue)
+}
+
+.container {
+    color: var(--theme-white);
+}
+
+.container .col {
+    padding: 1rem;
+}
+
+.container .col img {
+    width: 100%;
+    height: auto;
+}
+
+.container .col p {
+    padding: 1rem;
+}
+
+.container .col ul {
+    margin-bottom: 0px ;
+}

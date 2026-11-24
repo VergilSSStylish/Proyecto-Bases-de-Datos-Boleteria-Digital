@@ -1,0 +1,59 @@
+:root {
+    --font-family-base: 'Stack Sans Text', sans-serif;
+    --theme-black: #0C1014;
+    --theme-blue: #277dff;
+    --theme-yellow: #ffc200;
+    --theme-white: #ffffff;
+    --theme-gray: #171B1F;
+    --theme-light-gray: #212529;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--theme-black)    ;
+    margin: 0;
+}
+
+html {
+    background-color: var(--theme-black);
+    scroll-behavior: smooth;
+}
+
+section {
+    scroll-margin-top: 80px;
+    background-color: var(--theme-black);
+    color: var(--theme-white);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.auth-card {
+    font-family: var(--font-family-base);
+    background-color: var(--theme-gray);
+    border: 1px solid var(--theme-light-gray);
+    width: 100%;
+    max-width: 460px;
+    height: auto;
+}
+
+.auth-card.register-card {
+    max-width: 680px;
+}
+
+@media (max-width: 576px) {
+    section {
+        padding: 1rem 0.75rem;
+        align-items: self-start;
+    }
+
+    .auth-card {
+        padding: 1.5rem !important;
+    }
+
+    .auth-card h2 {
+        font-size: 1.5rem;
+    }
+}
