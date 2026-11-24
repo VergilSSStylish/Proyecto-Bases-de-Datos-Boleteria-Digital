@@ -1,18 +1,10 @@
 CREATE DATABASE Proyecto_basedeDatos;
-
-
 USE Proyecto_basedeDatos;
 
 -- TABLAS INDEPENDIENTES
 CREATE TABLE TipoUsuario(
 IDTipoUsuario       INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 Nombre              VARCHAR(100) NOT NULL,
-Descripcion         VARCHAR(200) null
-)ENGINE=InnoDB;
-
-CREATE TABLE Roles(
-IDRol               INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-NombreRol           VARCHAR(100) NOT NULL,
 Descripcion         VARCHAR(200) null
 )ENGINE=InnoDB;
 
@@ -91,7 +83,6 @@ CREATE TABLE Usuario (
     PasswordEncriptado Varchar(300) NOT NULL,
     IDRol INT NOT NULL,
     IDTipoUsuario INT NOT NULL,
-    CONSTRAINT fk_Rol_Usuaio FOREIGN KEY (IDRol) REFERENCES Roles (IDRol),
     CONSTRAINT fk_Tipo_Usuaio FOREIGN KEY (IDTipoUsuario) REFERENCES TipoUsuario (IDTipoUsuario)
 ) ENGINE=InnoDB;
 
@@ -312,12 +303,25 @@ CREATE TABLE Boletos (
     CONSTRAINT fk_Boleto_ZonaPrecio FOREIGN KEY (IDZonaPrecio) REFERENCES EventoxZonaPrecio(IDZonaPrecio)
 )ENGINE=InnoDB;
 
+CREATE TABLE Reserva(
+    IDReserva INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    FechaReserva DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FechaExpiracion DATETIME NOT NULL,
+    Estado BOOLEAN NOT NULL,
+    IDCarrito INT NOT NULL,
+    IDBoleto INT NOT NULL,
+    CONSTRAINT fk_Reservas_Carrito FOREIGN KEY (IDCarrito) REFERENCES Carrito(IDCarrito),
+    CONSTRAINT fk_Reservas_Boletos FOREIGN KEY (IDBoleto) REFERENCES Boletos(IDBoleto)
+)ENGINE=InnoDB;
+
 CREATE TABLE DetalleOrden(
     IDDetalleOrden INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    IDBoleto INT,
-    IDTipoDescuento INT,
+    IDBoleto INT NOT NULL,
+    IDTipoDescuento INT NOT NULL,
+    IDOrden INT NOT NULL,
     MontoDescuento DECIMAL(10,2) NOT NULL,
     Subtotal DECIMAL(10,2) NOT NULL,
+    CONSTRAINT fk_Detalle_Orden FOREIGN KEY(IDOrden) REFERENCES orden(IDOrden),
     CONSTRAINT fk_Detalle_Boleto FOREIGN KEY (IDBoleto) REFERENCES Boletos(IDBoleto),
     CONSTRAINT fk_Detalle_TipoDescuento FOREIGN KEY (IDTipoDescuento) REFERENCES TipoDescuento(IDTipoDescuento),
     -- RESTRICCIONES
@@ -351,4 +355,3 @@ CREATE TABLE Devoluciones(
     -- RESTRICCIONES
     CONSTRAINT checkMontoReembolsado CHECK(MontoReembolsado>=0)
 )ENGINE=InnoDB;
-
