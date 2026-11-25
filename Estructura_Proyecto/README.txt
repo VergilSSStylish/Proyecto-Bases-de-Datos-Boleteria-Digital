@@ -11,3 +11,22 @@ reemplazando los valores de user y contraseña por los que tienen en el MySQL(en
 
 3.En la terminal ejecutar "node server.js" y darle ctrl+click en el enlace.
 
+Si desean no estar encendiendo y apagando el servidor tienen que instalar nodemon
+Antes de esto deben verificar que los package json esten en la carpeta Estructura_Proyecto
+Luego:
+ npm i nodemon -D
+
+Y en el package.json deben de añadir la siguiente linea al apartado de scrips
+"dev" : "cd backend && npx nodemon server.js".
+
+Quedando asi:
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev" : "cd backend && npx nodemon server.js"
+  },
+
+  y luego una vez ubicados en la terminal, en Estructura_Proyecto>
+  colocan el comando npm run dev
+
+  y se reiniciara solo cada vez que haya un cambio
+

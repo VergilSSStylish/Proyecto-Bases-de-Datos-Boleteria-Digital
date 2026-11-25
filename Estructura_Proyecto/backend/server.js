@@ -12,5 +12,5 @@ app.use(express.json());
 app.use('/api/eventos', eventosRoutes);
 
 app.listen(3000, () => {
-    console.log('Servidor funcionando... click aqui -> http://127.0.0.1:5500/Estructura_Proyecto/frontend/index.html');
+    console.log('Servidor funcionando... click aqui -> http://localhost:5500/Estructura_Proyecto/frontend/index.html');
 });
