@@ -121,6 +121,8 @@ function aplicarFiltros() {
     });
     mostrarEventos(eventosFiltrados);
 }
+document.getElementById('search-input')
+    .addEventListener('input', aplicarFiltros);
 async function cargarCategorias() {
     const contenedor = document.getElementById('category-filters');
     try {
