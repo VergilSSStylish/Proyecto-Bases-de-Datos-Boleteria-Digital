@@ -461,10 +461,10 @@ INSERT INTO DetalleOrden ( IDBoleto, IDTipoDescuento, IDOrden, MontoDescuento, S
     ( 59, 1, 12, 0, 1200),
     ( 60, 2, 12, 75.0, 675.0);
    
-SELECT * from detalleorden;
-SET FOREIGN_KEY_CHECKS = 0;
-TRUNCATE TABLE DetalleOrden;
-SET FOREIGN_KEY_CHECKS = 1;
+-- SELECT * from detalleorden;
+ -- SET FOREIGN_KEY_CHECKS = 0;
+ -- TRUNCATE TABLE DetalleOrden; --
+-- SET FOREIGN_KEY_CHECKS = 1; --
 INSERT INTO Pago ( IDOrden, FechaPago, Monto, EstadoPago) VALUES
     ( 1, '2026-02-02', 4175.0, 1),
     ( 2, '2026-03-02', 4175.0, 1),
