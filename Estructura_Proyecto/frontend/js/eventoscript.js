@@ -132,6 +132,7 @@ if (campoBusqueda) {
 }
 async function cargarCategorias() {
     const contenedor = document.getElementById('category-filters');
+    if (!contenedor) return;
     try {
         const respuesta = await fetch(
             'http://localhost:3000/api/eventos/categorias'
