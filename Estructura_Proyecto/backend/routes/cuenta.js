@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const verificarToken = require('../middlewares/auth');
+
+const verificarToken = require('../servicios/auth');
 const cuentaQueries = require('../queries/cuentaQ');
 
 // Solo existen visa y mastercar, tenemosq que poner mas XD

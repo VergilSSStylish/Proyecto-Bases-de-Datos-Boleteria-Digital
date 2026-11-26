@@ -3,6 +3,7 @@ const conexion = require('../config/conexion');
 const obtenerDetalleEvento = async (idEvento) => {
     const [resultado] = await conexion.query(`
         SELECT IDEvento,
+                RestriccionXEdad,
                codVestimenta,
                PermiteAcompanante,
                MaxAcompanantes

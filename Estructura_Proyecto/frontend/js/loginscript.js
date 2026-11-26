@@ -1,3 +1,4 @@
+
 function mostrarLogin() {
     document.getElementById("login-section").style.display = "flex";
     document.getElementById("register-section").style.display = "none";
@@ -8,10 +9,52 @@ function mostrarRegistro() {
     document.getElementById("register-section").style.display = "flex";
 }
 
-
 window.mostrarLogin = mostrarLogin;
 window.mostrarRegistro = mostrarRegistro;
 
+// INICIO DE SESIÓN
+const formLogin = document.getElementById("form-login");
+
+formLogin.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const correo = document.getElementById("login-correo").value;
+    const contrasena = document.getElementById("login-contrasena").value;
+    const recordarme = document.getElementById("recordarme").checked;
+
+    try {
+        const respuesta = await fetch(
+            "http://127.0.0.1:3000/api/usuarios/login",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    correo,
+                    contrasena,
+                    recordarme
+                })
+            }
+        );
+
+        const resultado = await respuesta.json();
+
+        if (!respuesta.ok) {
+            alert(resultado.mensaje);
+            return;
+        }
+
+        localStorage.setItem("token", resultado.token);
+        window.location.href = resultado.destino;
+
+    } catch (error) {
+        console.error("Error al iniciar sesión:", error);
+        alert("No se pudo conectar con el servidor.");
+    }
+});
+
+// REGISTRO
 const formRegister = document.getElementById("form-register");
 const passwordInput = document.getElementById("password");
 const confirmPasswordInput = document.getElementById("confirm-password");
@@ -39,10 +82,54 @@ function validarContrasenas() {
 passwordInput.addEventListener("input", validarContrasenas);
 confirmPasswordInput.addEventListener("input", validarContrasenas);
 
-formRegister.addEventListener("submit", function (e) {
+formRegister.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
     if (!validarContrasenas()) {
-        e.preventDefault();
         confirmPasswordInput.focus();
+        return;
+    }
+
+    const datos = {
+        primerNombre: document.getElementById("pnombre").value,
+        segundoNombre: document.getElementById("snombre").value,
+        primerApellido: document.getElementById("papellido").value,
+        segundoApellido: document.getElementById("sapellido").value,
+        telefono: document.getElementById("telefono").value,
+        correo: document.getElementById("correo").value,
+        fechaNacimiento: document.getElementById("fechanac").value,
+        genero: document.getElementById("genero").value,
+        rtn: document.getElementById("RTN").value,
+        contrasena: passwordInput.value
+    };
+
+    try {
+        const respuesta = await fetch(
+            "http://127.0.0.1:3000/api/usuarios/registro",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(datos)
+            }
+        );
+
+        const resultado = await respuesta.json();
+
+        if (!respuesta.ok) {
+            alert(resultado.mensaje || "No se pudo registrar el usuario.");
+            return;
+        }
+
+        alert(resultado.mensaje);
+        formRegister.reset();
+        confirmPasswordInput.classList.remove("is-valid", "is-invalid");
+        mostrarLogin();
+
+    } catch (error) {
+        console.error("Error al registrar:", error);
+        alert("No se pudo conectar con el servidor.");
     }
 });
 

@@ -46,7 +46,7 @@ router.get('/', async (req, res) => {
         });
     }
 });
-module.exports = router;
+
 
 router.get('/categorias', async (req, res) => {
     try {
@@ -59,3 +59,4 @@ router.get('/categorias', async (req, res) => {
         });
     }
 });
+module.exports = router;

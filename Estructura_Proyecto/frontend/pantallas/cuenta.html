@@ -82,33 +82,7 @@
                     <!--aquí se renderizarán los métodos guardados de la bd-->
                     <div id="payment-methods-list" class="items-list">
                         
-                        <!--plantillas de tarjeta-->
-                        <div class="payment-item">
-                            <div class="payment-details">
-                                <i class="fa-brands fa-cc-visa payment-icon"></i>
-                                <div>
-                                    <p class="payment-title">Visa terminada en •••• 4589</p>
-                                    <span class="payment-expiry">Expira: 08/28</span>
-                                </div>
-                            </div>
-                            <button type="button" class="btn-icon-delete" title="Eliminar método">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                        
-                        <!--otro ejemplo de plantilla de tarjeta-->
-                        <div class="payment-item">
-                            <div class="payment-details">
-                                <i class="fa-brands fa-cc-mastercard payment-icon"></i>
-                                <div>
-                                    <p class="payment-title">Mastercard terminada en •••• 1024</p>
-                                    <span class="payment-expiry">Expira: 11/27</span>
-                                </div>
-                            </div>
-                            <button type="button" class="btn-icon-delete" title="Eliminar método">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
+                       
 
                     </div>
                 </div>
@@ -116,10 +90,15 @@
                 <!--tickets ya comprados por el usuario, de tabla orden/usuarios, redirige a otra pantalla tickets-->
                 <div class="profile-card">
                     <div class="card-header">
-                        <h2><i class="fa-solid fa-ticket"></i> Mis tickets comprados</h2>
+                         <h2><i class="fa-solid fa-ticket"></i> Mis tickets comprados</h2>
                         <a href="tickets.html" class="btn-history">Ver todos</a>
                     </div>
+
+                 <!-- Aquí se mostrarán los últimos tickets -->
+                 <div id="preview-tickets-list" class="items-list">
+                     <p>Cargando tickets...</p>
                 </div>
+</div>
 
             </div>
         </div>
@@ -171,6 +150,6 @@
 
     <script src="../js/cuentascript.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="../js/cuentascript.js"></script>
+   
 </body>
 </html>

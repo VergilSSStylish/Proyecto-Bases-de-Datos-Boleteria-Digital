@@ -1,4 +1,4 @@
-const API_EVENTOS_URL = 'http://localhost:3000/api/eventos';
+const API_EVENTOS_URL = 'http://127.0.0.1:3000/api/eventos';
 
 const parametrosEvento = new URLSearchParams(window.location.search);
 const idEventoDetalle = Number(parametrosEvento.get('idEvento'));

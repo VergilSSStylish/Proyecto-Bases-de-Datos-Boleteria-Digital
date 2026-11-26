@@ -1,5 +1,5 @@
 
-const API_URL = 'http://localhost:3000/api/eventos';
+const API_URL = 'http://127.0.0.1:3000/api/eventos';
 
 let todosLosEventos = [];
 let categoriaSeleccionada = 'all';
@@ -135,7 +135,7 @@ async function cargarCategorias() {
     if (!contenedor) return;
     try {
         const respuesta = await fetch(
-            'http://localhost:3000/api/eventos/categorias'
+            'http://127.0.0.1:3000/api/eventos/categorias'
         );
         if (!respuesta.ok) {
             throw new Error('Error al obtener categorías');

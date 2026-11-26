@@ -1,24 +1,41 @@
+
 // PARTE DE OMAR
-const API = 'http://localhost:3000/api';
+const API = 'http://127.0.0.1:3000/api';//oj
 const token = localStorage.getItem('token');
 
-// Ajusta el nombre de la página de login cuando tu compañero la tenga
+// Si no hay token, regresar al login
 if (!token) location.href = 'login.html';
 
 async function api(ruta, opciones = {}) {
-    const res = await fetch(API + ruta, {
-        ...opciones,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
+    try {
+        const res = await fetch(API + ruta, {
+            ...opciones,
+            headers: {
+                'Content-Type': 'application/json',
+                ...opciones.headers,
+                'Authorization': 'Bearer ' + token
+            }
+        });
+
+        const resultado = await res.json();
+
+        if (res.status === 401) {
+            localStorage.removeItem('token');
+            location.href = 'login.html';
+            return null;
         }
-    });
-    if (res.status === 401) {
-        localStorage.removeItem('token');
-        location.href = 'login.html';
-        return;
+
+        if (!res.ok) {
+            console.error('Error del servidor:', resultado);
+            return null;
+        }
+
+        return resultado;
+
+    } catch (error) {
+        console.error('Error de conexión:', error);
+        return null;
     }
-    return res.json();
 }
 //PARTE DE TRINA
 
@@ -39,6 +56,59 @@ document.addEventListener("DOMContentLoaded", () => {
     function cerrarModal() {
         paymentModal.classList.remove("active");
         paymentForm.reset();
+    }
+
+
+    // Mostrar una vista previa de los tickets comprados
+    async function cargarTicketsPreview() {
+        const lista = document.getElementById('preview-tickets-list');
+
+        if (!lista) return;
+
+        const resultado = await api('/tickets');
+
+        if (!resultado) {
+            lista.textContent = 'No se pudieron cargar los tickets.';
+            return;
+        }
+
+        const tickets = resultado.tickets || [];
+
+        lista.innerHTML = '';
+
+        if (tickets.length === 0) {
+            lista.textContent = 'Todavía no tienes tickets comprados.';
+            return;
+        }
+//añadi este
+        // Mostrar solamente los primeros 3 tickets
+        tickets.slice(0, 3).forEach(ticket => {
+            const tarjeta = document.createElement('div');
+            tarjeta.classList.add('payment-item');
+
+            const fecha = ticket.FechaEvento
+                ? new Date(ticket.FechaEvento + 'T00:00:00').toLocaleDateString('es-HN')
+                : 'Fecha no disponible';
+
+            tarjeta.innerHTML = `
+                <div class="payment-details">
+                    <i class="fa-solid fa-ticket payment-icon"></i>
+                    <div>
+                        <p class="payment-title">
+                            ${ticket.Evento || 'Evento sin nombre'}
+                        </p>
+                        <span class="payment-expiry">
+                            ${fecha} • ${ticket.NombreRecinto || 'Recinto no disponible'}
+                        </span>
+                        <span class="payment-expiry">
+                            ${ticket.NombreZona || 'Zona no disponible'}
+                        </span>
+                    </div>
+                </div>
+            `;
+
+            lista.appendChild(tarjeta);
+        });
     }
 
     btnCloseModal.addEventListener("click", cerrarModal);
@@ -150,4 +220,5 @@ document.addEventListener("DOMContentLoaded", () => {
     // Al cargar la página SIEMPRE PASARA ESO
     cargarPerfil();
     cargarTarjetas();
+    cargarTicketsPreview();
 });
