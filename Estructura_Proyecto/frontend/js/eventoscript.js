@@ -38,8 +38,13 @@ function mostrarEventos(eventos) {
         return;
     }
     eventos.forEach(evento => {
-        const tarjeta = document.createElement('div');
+        const tarjeta = document.createElement('a');
         tarjeta.classList.add('event-card');
+        const rutaDetalle = location.pathname.includes('/pantallas/')
+            ? 'detalleevento.html'
+            : 'pantallas/detalleevento.html';
+        tarjeta.href = `${rutaDetalle}?idEvento=${evento.IDEvento}`;
+        tarjeta.style.textDecoration = 'none';
         const contenedorImagen = document.createElement('div');
         contenedorImagen.classList.add('event-img');
         const imagen = document.createElement('img');
@@ -121,8 +126,10 @@ function aplicarFiltros() {
     });
     mostrarEventos(eventosFiltrados);
 }
-document.getElementById('search-input')
-    .addEventListener('input', aplicarFiltros);
+const campoBusqueda = document.getElementById('search-input');
+if (campoBusqueda) {
+    campoBusqueda.addEventListener('input', aplicarFiltros);
+}
 async function cargarCategorias() {
     const contenedor = document.getElementById('category-filters');
     try {
@@ -161,4 +168,6 @@ async function cargarCategorias() {
 });
 }
 cargarEventos();
-cargarCategorias();
+if (document.getElementById('category-filters')) {
+    cargarCategorias();
+}

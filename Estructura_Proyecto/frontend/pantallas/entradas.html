@@ -62,60 +62,17 @@
                 <h1>Entradas</h1>
             </div>
             <div id="tickets-list">
-
-                <!--se renderizará con la BD, la cantidad de tipos de boleto y la información de cada uno-->
-                <div class="ticket-card">
-                    <div class="ticket-info">
-                        <p class="ticket-name">Zona VIP</p>
-                        <span class="ticket-details">Frente al escenario</span>
-                        <span class="ticket-dispo">Disponibles: 10</span>
-                        <p class="ticket-price">L 1,000.00</p>
-                    </div>
-                    <div class="ticket-qty">
-                        <button class="qty-btn">-</button>
-                        <span class="qty-value">0</span>
-                        <button class="qty-btn">+</button>
-                    </div>
-                </div>
-
-                <!--ejemplo-->
-                <div class="ticket-card">
-                    <div class="ticket-info">
-                        <p class="ticket-name">Zona VIP</p>
-                        <span class="ticket-details">Frente al escenario</span>
-                        <span class="ticket-dispo">Disponibles: 10</span>
-                        <p class="ticket-price">L 1,000.00</p>
-                    </div>
-                    <div class="ticket-qty">
-                        <button class="qty-btn">-</button>
-                        <span class="qty-value">0</span>
-                        <button class="qty-btn">+</button>
-                    </div>
-                </div>
-
-                <!--ejemplo-->
-                <div class="ticket-card">
-                    <div class="ticket-info">
-                        <p class="ticket-name">Zona VIP</p>
-                        <span class="ticket-details">Frente al escenario</span>
-                        <span class="ticket-dispo">Disponibles: 10</span>
-                        <p class="ticket-price">L 1,000.00</p>
-                    </div>
-                    <div class="ticket-qty">
-                        <button class="qty-btn">-</button>
-                        <span class="qty-value">0</span>
-                        <button class="qty-btn">+</button>
-                    </div>
-                </div>
+                <p id="tickets-message">Cargando entradas...</p>
             </div>
             
-            <!--botón para agregar al carrito-->
+            <!--El carrito aún no se implementa.-->
             <button type="button" id="btn-add-to-cart" class="btn-cart-action" disabled>
-                <i class="fa-solid fa-cart-shopping"></i> Agregar e ir al carrito
+                <i class="fa-solid fa-cart-shopping"></i> Carrito aún no disponible
             </button>
         </div>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="../js/entradascript.js"></script>
 </body>
 </html>
