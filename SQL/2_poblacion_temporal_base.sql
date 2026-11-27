@@ -80,22 +80,22 @@ INSERT INTO TipoDescuento (Nombre, Descuento, IdConfiguracionEdades) VALUES
     ('Adulto mayor - Cuarta Edad',35.0,5),
     ('Promoción especial', 5.0, 1);
 
-INSERT INTO Usuario (PNombre, SNombre, PApellido, SApellido, Telefono, Correo, FechaNac, Genero, RTN, FechaReg, PasswordEncriptado, IDRol, IDTipoUsuario) VALUES
-    ('Ana', NULL, 'López', 'Hernández', '999100001', 'usuario1@ejemplo.test', '1992-02-15', 'F', NULL, '2026-02-01', 'HASH_DE_PRUEBA_NO_VALIDO', 1, 1),
-    ('Carlos', NULL, 'Méndez', 'García', '999100002', 'usuario2@ejemplo.test', '1993-03-15', 'M', NULL, '2026-03-01', 'HASH_DE_PRUEBA_NO_VALIDO', 1, 2),
-    ('María', NULL, 'Pineda', 'Hernández', '999100003', 'usuario3@ejemplo.test', '1994-04-15', 'F', NULL, '2026-04-01', 'HASH_DE_PRUEBA_NO_VALIDO', 1, 3),
-    ( 'Sofía', NULL, 'Reyes', 'García', '999100004', 'usuario4@ejemplo.test', '1995-05-15', 'M', NULL, '2026-05-01', 'HASH_DE_PRUEBA_NO_VALIDO', 1, 4),
-    ('Daniel', NULL, 'Castillo', 'Hernández', '999100005', 'usuario5@ejemplo.test', '1996-06-15', 'F', NULL, '2026-06-01', 'HASH_DE_PRUEBA_NO_VALIDO', 1, 4),
-    ( 'Valeria', NULL, 'Flores', 'García', '999100006', 'usuario6@ejemplo.test', '1997-07-15', 'M', NULL, '2026-07-01', 'HASH_DE_PRUEBA_NO_VALIDO', 1, 4),
-    ( 'José', NULL, 'Mejía', 'Hernández', '999100007', 'usuario7@ejemplo.test', '1998-08-15', 'F', NULL, '2026-08-01', 'HASH_DE_PRUEBA_NO_VALIDO', 1, 4),
-    ( 'Camila', NULL, 'Cruz', 'García', '999100008', 'usuario8@ejemplo.test', '1999-09-15', 'M', NULL, '2026-09-01', 'HASH_DE_PRUEBA_NO_VALIDO', 1, 4),
-    ('Andrés', NULL, 'Rivera', 'Hernández', '999100009', 'usuario9@ejemplo.test', '1991-01-15', 'F', NULL, '2026-10-01', 'HASH_DE_PRUEBA_NO_VALIDO', 1, 4),
-    ( 'Lucía', NULL, 'Paz', 'García', '999100010', 'usuario10@ejemplo.test', '1992-02-15', 'M', NULL, '2026-11-01', 'HASH_DE_PRUEBA_NO_VALIDO', 1, 4),
-    ( 'Mateo', NULL, 'Molina', 'Hernández', '999100011', 'usuario11@ejemplo.test', '1993-03-15', 'F', NULL, '2026-01-01', 'HASH_DE_PRUEBA_NO_VALIDO', 1, 4),
-    ( 'Isabella', NULL, 'Vargas', 'García', '999100012', 'usuario12@ejemplo.test', '1994-04-15', 'M', NULL, '2026-02-01', 'HASH_DE_PRUEBA_NO_VALIDO', 1, 4),
-    ( 'David', NULL, 'Díaz', 'Hernández', '999100013', 'usuario13@ejemplo.test', '1995-05-15', 'F', NULL, '2026-03-01', 'HASH_DE_PRUEBA_NO_VALIDO', 1, 4),
-    ( 'Gabriela', NULL, 'Ramos', 'García', '999100014', 'usuario14@ejemplo.test', '1996-06-15', 'M', NULL, '2026-04-01', 'HASH_DE_PRUEBA_NO_VALIDO', 1, 4),
-    ( 'Samuel', NULL, 'Aguilar', 'Hernández', '999100015', 'usuario15@ejemplo.test', '1997-07-15', 'F', NULL, '2026-05-01', 'HASH_DE_PRUEBA_NO_VALIDO', 1, 4);
+INSERT INTO Usuario (PNombre, SNombre, PApellido, SApellido, Telefono, Correo, FechaNac, Genero, RTN, FechaReg, PasswordEncriptado, IDTipoUsuario) VALUES
+    ('Ana', NULL, 'López', 'Hernández', '999100001', 'usuario1@ejemplo.test', '1992-02-15', 'F', NULL, '2026-02-01', 'HASH_DE_PRUEBA_NO_VALIDO', 1),
+    ('Carlos', NULL, 'Méndez', 'García', '999100002', 'usuario2@ejemplo.test', '1993-03-15', 'M', NULL, '2026-03-01', 'HASH_DE_PRUEBA_NO_VALIDO', 2),
+    ('María', NULL, 'Pineda', 'Hernández', '999100003', 'usuario3@ejemplo.test', '1994-04-15', 'F', NULL, '2026-04-01', 'HASH_DE_PRUEBA_NO_VALIDO', 3),
+    ( 'Sofía', NULL, 'Reyes', 'García', '999100004', 'usuario4@ejemplo.test', '1995-05-15', 'M', NULL, '2026-05-01', 'HASH_DE_PRUEBA_NO_VALIDO', 4),
+    ('Daniel', NULL, 'Castillo', 'Hernández', '999100005', 'usuario5@ejemplo.test', '1996-06-15', 'F', NULL, '2026-06-01', 'HASH_DE_PRUEBA_NO_VALIDO', 4),
+    ( 'Valeria', NULL, 'Flores', 'García', '999100006', 'usuario6@ejemplo.test', '1997-07-15', 'M', NULL, '2026-07-01', 'HASH_DE_PRUEBA_NO_VALIDO', 4),
+    ( 'José', NULL, 'Mejía', 'Hernández', '999100007', 'usuario7@ejemplo.test', '1998-08-15', 'F', NULL, '2026-08-01', 'HASH_DE_PRUEBA_NO_VALIDO', 4),
+    ( 'Camila', NULL, 'Cruz', 'García', '999100008', 'usuario8@ejemplo.test', '1999-09-15', 'M', NULL, '2026-09-01', 'HASH_DE_PRUEBA_NO_VALIDO', 4),
+    ('Andrés', NULL, 'Rivera', 'Hernández', '999100009', 'usuario9@ejemplo.test', '1991-01-15', 'F', NULL, '2026-10-01', 'HASH_DE_PRUEBA_NO_VALIDO', 4),
+    ( 'Lucía', NULL, 'Paz', 'García', '999100010', 'usuario10@ejemplo.test', '1992-02-15', 'M', NULL, '2026-11-01', 'HASH_DE_PRUEBA_NO_VALIDO', 4),
+    ( 'Mateo', NULL, 'Molina', 'Hernández', '999100011', 'usuario11@ejemplo.test', '1993-03-15', 'F', NULL, '2026-01-01', 'HASH_DE_PRUEBA_NO_VALIDO', 4),
+    ( 'Isabella', NULL, 'Vargas', 'García', '999100012', 'usuario12@ejemplo.test', '1994-04-15', 'M', NULL, '2026-02-01', 'HASH_DE_PRUEBA_NO_VALIDO', 4),
+    ( 'David', NULL, 'Díaz', 'Hernández', '999100013', 'usuario13@ejemplo.test', '1995-05-15', 'F', NULL, '2026-03-01', 'HASH_DE_PRUEBA_NO_VALIDO', 4),
+    ( 'Gabriela', NULL, 'Ramos', 'García', '999100014', 'usuario14@ejemplo.test', '1996-06-15', 'M', NULL, '2026-04-01', 'HASH_DE_PRUEBA_NO_VALIDO', 4),
+    ( 'Samuel', NULL, 'Aguilar', 'Hernández', '999100015', 'usuario15@ejemplo.test', '1997-07-15', 'F', NULL, '2026-05-01', 'HASH_DE_PRUEBA_NO_VALIDO', 4);
 select * from usuario;
 INSERT INTO Direccion (Colonia, Calle, Referencia, RutaImagen, IDMunicipio) VALUES
     ('Colonia Palmira', 'Avenida República', 'Frente a la plaza', NULL, 1),

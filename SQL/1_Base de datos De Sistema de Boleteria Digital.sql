@@ -81,7 +81,6 @@ CREATE TABLE Usuario (
     RTN VARCHAR(14) NULL UNIQUE,
     FechaReg DATE NOT NULL DEFAULT (CURRENT_DATE),
     PasswordEncriptado Varchar(300) NOT NULL,
-    IDRol INT NOT NULL,
     IDTipoUsuario INT NOT NULL,
     CONSTRAINT fk_Tipo_Usuaio FOREIGN KEY (IDTipoUsuario) REFERENCES TipoUsuario (IDTipoUsuario)
 ) ENGINE=InnoDB;
