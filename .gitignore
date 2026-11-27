@@ -3,3 +3,4 @@ node_modules/
 
 Estructura_Proyecto/package*.json
 Estructura_Proyecto/backend/.env
+.vscode/settings.json
