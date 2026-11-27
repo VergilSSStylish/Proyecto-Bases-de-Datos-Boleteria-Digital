@@ -10,11 +10,6 @@ UPDATE Devoluciones d
 UPDATE EventoxZonaPrecio SET CupoDisponible = CupoDisponible + 1 WHERE IDZonaPrecio = 11;
 UPDATE Boletos SET IDEstadoBoleto = 4 WHERE IDBoleto = 20;            -- 4 = Anulado
 
--- B. Casos de prueba para Sofía (ID 16, usuario4@ejemplo.test, contraseña Prueba123, orden 1)
-UPDATE Usuario
-   SET PasswordEncriptado = '$2b$10$gm3n/NArxwQXf11JtPVbxe1mDFZCE9a3LGKXqgin3EvspJlXyoSHu'
- WHERE IDUsuario = 16;
-
 -- Utilizado: el boleto VIP 4 ya entró al evento
 UPDATE Boletos SET IDEstadoBoleto = 3 WHERE IDBoleto = 4;             -- 3 = Canjeado
 

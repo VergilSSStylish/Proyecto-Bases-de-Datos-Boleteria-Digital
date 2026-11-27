@@ -84,7 +84,7 @@ INSERT INTO Usuario (PNombre, SNombre, PApellido, SApellido, Telefono, Correo, F
     ('Ana', NULL, 'López', 'Hernández', '999100001', 'usuario1@ejemplo.test', '1992-02-15', 'F', NULL, '2026-02-01', 'HASH_DE_PRUEBA_NO_VALIDO', 1),
     ('Carlos', NULL, 'Méndez', 'García', '999100002', 'usuario2@ejemplo.test', '1993-03-15', 'M', NULL, '2026-03-01', 'HASH_DE_PRUEBA_NO_VALIDO', 2),
     ('María', NULL, 'Pineda', 'Hernández', '999100003', 'usuario3@ejemplo.test', '1994-04-15', 'F', NULL, '2026-04-01', 'HASH_DE_PRUEBA_NO_VALIDO', 3),
-    ( 'Sofía', NULL, 'Reyes', 'García', '999100004', 'usuario4@ejemplo.test', '1995-05-15', 'M', NULL, '2026-05-01', 'HASH_DE_PRUEBA_NO_VALIDO', 4),
+    ( 'Sofía', NULL, 'Reyes', 'García', '999100004', 'usuario4@ejemplo.test', '1995-05-15', 'M', NULL, '2026-05-01', '$2b$10$8cKvl3ZeChTsQlF1eD5ifODRAg7lkqdZBd0obaJrDZl8wcWqczUxi', 4),
     ('Daniel', NULL, 'Castillo', 'Hernández', '999100005', 'usuario5@ejemplo.test', '1996-06-15', 'F', NULL, '2026-06-01', 'HASH_DE_PRUEBA_NO_VALIDO', 4),
     ( 'Valeria', NULL, 'Flores', 'García', '999100006', 'usuario6@ejemplo.test', '1997-07-15', 'M', NULL, '2026-07-01', 'HASH_DE_PRUEBA_NO_VALIDO', 4),
     ( 'José', NULL, 'Mejía', 'Hernández', '999100007', 'usuario7@ejemplo.test', '1998-08-15', 'F', NULL, '2026-08-01', 'HASH_DE_PRUEBA_NO_VALIDO', 4),
