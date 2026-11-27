@@ -92,4 +92,6 @@ También hay un campo de `IDRol` que creo que se nos olvidó eliminar; no da reg
 ```sql
 ALTER TABLE Usuario
 DROP COLUMN IDRol;
+
+ejecutar en la base de datos los archivos de poblaciontemporaltickets, para poder visualizar los tickets despues de se hayan pagado.
 ```
