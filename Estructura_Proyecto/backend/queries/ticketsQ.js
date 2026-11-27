@@ -1,40 +1,39 @@
 const conexion = require('../config/conexion');
-const obtenerTicketsUsuario = async (idUsuario) => {//necesario crear una vista para solo consultar
+
+// Boletos comprados por el usuario, una fila por boleto, con su estado ya calculado por la vista
+const obtenerTicketsUsuario = async (idUsuario) => {
     const [resultado] = await conexion.query(`
-        SELECT
-            o.IDOrden,
-            o.FechaCompra,
-            eo.Nombre AS EstadoOrden,
-            b.IDBoleto,
-            b.CodigoAlfanumerico,
-            eb.NombreEstado AS EstadoBoleto,
-            e.Titulo AS Evento,
-            e.Fecha AS FechaEvento,
-            e.HoraInicio,
-            r.NombreRecinto,
-            zr.NombreZona,
-            ezp.Precio
-        FROM orden o
-        INNER JOIN detalleorden do
-            ON o.IDOrden = do.IDOrden
-        INNER JOIN boletos b
-            ON do.IDBoleto = b.IDBoleto
-        INNER JOIN evento e
-            ON b.IDEvento = e.IDEvento
-        LEFT JOIN estadoorden eo
-            ON o.IDEstadoOrden = eo.IDEstadoOrden
-        LEFT JOIN estadoboleto eb
-            ON b.IDEstadoBoleto = eb.IDEstadoBoleto
-        LEFT JOIN eventoxzonaprecio ezp
-            ON b.IDZonaPrecio = ezp.IDZonaPrecio
-        LEFT JOIN zonasrecinto zr
-            ON ezp.IDZonasRecinto = zr.IDZonasRecinto
-        LEFT JOIN recinto r
-            ON e.IDRecinto = r.IDRecinto
-        WHERE o.IDUsuario = ?
-          AND eo.Nombre = 'Pagado'
-        ORDER BY e.Fecha ASC
+        SELECT * FROM vw_MisBoletos
+        WHERE IDUsuario = ?
+        ORDER BY Fecha DESC, IDOrden, IDZonaPrecio, IDBoleto
     `, [idUsuario]);
     return resultado;
 };
-module.exports = { obtenerTicketsUsuario };
+
+// Código de un boleto propio y activo (para generar su QR); undefined si no cumple
+const obtenerCodigoActivo = async (idUsuario, idBoleto) => {
+    const [resultado] = await conexion.query(`
+        SELECT CodigoAlfanumerico FROM vw_MisBoletos
+        WHERE IDUsuario = ? AND IDBoleto = ? AND Estado = 'Activo'
+    `, [idUsuario, idBoleto]);
+    return resultado[0];
+};
+
+// El boleto y, si es titular, sus acompañantes, solo si se pueden devolver
+const obtenerBoletosDevolvibles = async (idUsuario, idBoleto) => {
+    const [resultado] = await conexion.query(`
+        SELECT IDBoleto, IDDetalleOrden, Subtotal FROM vw_MisBoletos
+        WHERE IDUsuario = ? AND PuedeDevolver = 1 AND (IDBoleto = ? OR IDBoletoTitular = ?)
+    `, [idUsuario, idBoleto, idBoleto]);
+    return resultado;
+};
+
+// Una solicitud Pendiente (Estado 1) por boleto; el monto es lo que se pagó por cada uno
+const registrarDevoluciones = async (boletos, motivo) => {
+    await conexion.query(
+        'INSERT INTO Devoluciones (IDDetalleOrden, Motivo, MontoReembolsado, Estado) VALUES ?',
+        [boletos.map(b => [b.IDDetalleOrden, motivo, b.Subtotal, 1])]
+    );
+};
+
+module.exports = { obtenerTicketsUsuario, obtenerCodigoActivo, obtenerBoletosDevolvibles, registrarDevoluciones };
