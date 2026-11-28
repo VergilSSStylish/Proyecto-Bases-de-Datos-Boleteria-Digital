@@ -3,9 +3,14 @@ const conexion = require('../config/conexion');
 // Boletos comprados por el usuario, una fila por boleto, con su estado ya calculado por la vista
 const obtenerTicketsUsuario = async (idUsuario) => {
     const [resultado] = await conexion.query(`
-        SELECT * FROM vw_MisBoletos
-        WHERE IDUsuario = ?
-        ORDER BY Fecha DESC, IDOrden, IDZonaPrecio, IDBoleto
+        SELECT B.*,
+               D.IDDevolucion IS NOT NULL AS TieneDevolucion
+        FROM vw_MisBoletos B
+        LEFT JOIN Devoluciones D
+            ON D.IDDetalleOrden = B.IDDetalleOrden
+            AND D.Estado = 1
+        WHERE B.IDUsuario = ?
+        ORDER BY B.Fecha DESC, B.IDOrden, B.IDZonaPrecio, B.IDBoleto
     `, [idUsuario]);
     return resultado;
 };
@@ -13,8 +18,15 @@ const obtenerTicketsUsuario = async (idUsuario) => {
 // Código de un boleto propio y activo (para generar su QR); undefined si no cumple
 const obtenerCodigoActivo = async (idUsuario, idBoleto) => {
     const [resultado] = await conexion.query(`
-        SELECT CodigoAlfanumerico FROM vw_MisBoletos
-        WHERE IDUsuario = ? AND IDBoleto = ? AND Estado = 'Activo'
+        SELECT B.CodigoAlfanumerico
+        FROM vw_MisBoletos B
+        WHERE B.IDUsuario = ? AND B.IDBoleto = ? AND B.Estado = 'Activo'
+          AND NOT EXISTS (
+              SELECT 1
+              FROM Devoluciones D
+              WHERE D.IDDetalleOrden = B.IDDetalleOrden
+                AND D.Estado = 1
+          )
     `, [idUsuario, idBoleto]);
     return resultado[0];
 };

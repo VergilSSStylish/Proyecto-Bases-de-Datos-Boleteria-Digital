@@ -12,12 +12,23 @@ const registrarUsuario = async (datos) => {
         !datos.correo ||
         !datos.fechaNacimiento ||
         !datos.contrasena
-    ) {
+    )
+    
+    {
         return {
             exitoso: false,
             mensaje: 'Complete todos los campos obligatorios.'
         };
     }
+
+    
+if (!validarFechaNacimiento(datos.fechaNacimiento)) {
+    return {
+        exitoso: false,
+        mensaje: 'La fecha de nacimiento no es válida. No cumples con el requisito de edad mínima para continuar.'
+    }
+};
+
     // valida longitud de la contrasena
     if (datos.contrasena.length < 8) {
         return {
@@ -25,7 +36,7 @@ const registrarUsuario = async (datos) => {
             mensaje: 'La contraseña debe tener al menos 8 caracteres.'
         };
     }
-    const usuarioExistente = await obtenerUsuarioPorCorreo(datos.correo);//validar que el correo no este registrado
+    const usuarioExistente = await obtenerUsuarioPorCorreo(datos.correo);//valida que el correo no este registrado
     if (usuarioExistente) {
     return {
         exitoso: false,
@@ -47,4 +58,45 @@ const registrarUsuario = async (datos) => {
         idUsuario: idUsuario
     };
 };
-module.exports = { registrarUsuario };
+function validarFechaNacimiento(fecha) {
+    if (!fecha || typeof fecha !== 'string') {
+        return false;
+    }
+
+    const nacimiento = new Date(`${fecha}T00:00:00`);
+    const hoy = new Date();
+
+    // Comprobar que la fecha sea válida
+    if (Number.isNaN(nacimiento.getTime())) {
+        return false;
+    }
+
+ // comprobar que la fecha realmente exista
+    if (
+        fechaValidada.getFullYear() !== anio ||
+        fechaValidada.getMonth() !== mes - 1 ||
+        fechaValidada.getDate() !== dia
+    ) {
+        return false;
+    }
+
+    // No permitir fechas futuras
+    if (nacimiento > hoy) {
+        return false;
+    }
+
+    // Calcular edad
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+
+    const noHaCumplidoAnios =
+        hoy.getMonth() < nacimiento.getMonth() ||
+        (hoy.getMonth() === nacimiento.getMonth() &&
+         hoy.getDate() < nacimiento.getDate());
+
+    if (noHaCumplidoAnios) {
+        edad--;
+    }
+
+    return edad >= 16;
+}
+module.exports = { registrarUsuario,validarFechaNacimiento };

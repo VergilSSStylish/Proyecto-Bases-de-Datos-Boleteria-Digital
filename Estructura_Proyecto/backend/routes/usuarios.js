@@ -53,8 +53,6 @@ router.post('/login', async (req, res) => {
     }
 });
 
-
-
 router.post('/registro', async (req, res) => {
     try {
         const resultado = await registrarUsuario(req.body);
@@ -78,7 +76,6 @@ router.post('/registro', async (req, res) => {
 });
 
 router.post('/logout', (req, res) => {
-   
     res.json({
         exitoso: true,
         mensaje: 'Sesión cerrada correctamente.'

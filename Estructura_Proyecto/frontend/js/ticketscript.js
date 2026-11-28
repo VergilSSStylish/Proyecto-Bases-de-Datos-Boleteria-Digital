@@ -118,42 +118,85 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Cada boleto es una fila: el QR a la izquierda y sus datos a la derecha
-    function crearItemQr(b, numero, total) {
-        const item = document.createElement("div");
-        item.className = "qr-boleto";
-        item.classList.toggle("inactivo", b.Estado !== "Activo");
+    
+function crearItemQr(b, numero, total) {
+    const item = document.createElement("div");
+    item.className = "qr-boleto";
 
-        const marco = document.createElement("div");
-        marco.className = "qr-code-wrapper";
-        if (b.Estado === "Activo") {
-            const img = document.createElement("img");
-            img.alt = `QR del boleto ${b.CodigoAlfanumerico}`;
-            marco.appendChild(img);
-            api(`/${b.IDBoleto}/qr`).then(r => { if (r.exitoso) img.src = r.qr; });
-        } else {
-            marco.appendChild(icono("fa-qrcode qr-placeholder-icon")); // sin QR: ícono gris
-        }
+    const devolucionPendiente =
+        Number(b.TieneDevolucion) === 1 ||
+        Number(b.EstadoDevolucion) === 1;
 
-        const info = document.createElement("div");
-        info.className = "qr-info";
-        const quien = b.EsAcompanante ? `Acompañante: ${b.NombreAcompanante}` : "Titular";
-        info.append(etiqueta(`Boleto ${numero} de ${total} · ${quien}`, "qr-order-tag"),
-            etiqueta(b.Estado, `badge-status ${CLASE_ESTADO[b.Estado]}`),
-            etiqueta(`Código: ${b.CodigoAlfanumerico}`, "qr-hint"));
+    const puedeMostrarQr =
+        b.Estado === "Activo" && !devolucionPendiente;
 
-        if (b.EstadoDevolucion) {
-            info.appendChild(etiqueta(TEXTO_DEVOLUCION[b.EstadoDevolucion], "devolucion-tag"));
-        } else if (b.PuedeDevolver) {
-            const boton = document.createElement("button");
-            boton.type = "button";
-            boton.className = "btn-devolver";
-            boton.textContent = "Solicitar devolución";
-            boton.addEventListener("click", () => abrirDevolucion(b));
-            info.appendChild(boton);
-        }
-        item.append(marco, info);
-        return item;
+    item.classList.toggle("inactivo", !puedeMostrarQr);
+
+    const marco = document.createElement("div");
+    marco.className = "qr-code-wrapper";
+
+    if (puedeMostrarQr) {
+        const img = document.createElement("img");
+        img.alt = `QR del boleto ${b.CodigoAlfanumerico}`;
+        marco.appendChild(img);
+
+        api(`/${b.IDBoleto}/qr`).then(r => {
+            if (r.exitoso) img.src = r.qr;
+        });
+    } else {
+        marco.appendChild(icono("fa-qrcode qr-placeholder-icon"));
     }
+
+    const info = document.createElement("div");
+    info.className = "qr-info";
+
+    const quien = b.EsAcompanante
+        ? `Acompañante: ${b.NombreAcompanante}`
+        : "Titular";
+
+    info.appendChild(
+        etiqueta(
+            `Boleto ${numero} de ${total} · ${quien}`,
+            "qr-order-tag"
+        )
+    );
+
+    info.appendChild(
+        etiqueta(b.Estado, `badge-status ${CLASE_ESTADO[b.Estado]}`)
+    );
+
+    if (devolucionPendiente) {
+        info.appendChild(
+            etiqueta("Devolución solicitada", "devolucion-tag")
+        );
+    } else if (b.EstadoDevolucion) {
+        info.appendChild(
+            etiqueta(
+                TEXTO_DEVOLUCION[b.EstadoDevolucion],
+                "devolucion-tag"
+            )
+        );
+    }
+
+    if (!devolucionPendiente) {
+        info.appendChild(
+            etiqueta(`Código: ${b.CodigoAlfanumerico}`, "qr-hint")
+        );
+    }
+
+    if (!devolucionPendiente && !b.EstadoDevolucion && b.PuedeDevolver) {
+        const boton = document.createElement("button");
+        boton.type = "button";
+        boton.className = "btn-devolver";
+        boton.textContent = "Solicitar devolución";
+        boton.addEventListener("click", () => abrirDevolucion(b));
+        info.appendChild(boton);
+    }
+
+    item.append(marco, info);
+    return item;
+}
+
 
     function cerrarModalQr() {
         qrModal.classList.remove("active");

@@ -3,7 +3,6 @@ const API_URL = 'http://127.0.0.1:3000/api/eventos';
 
 let todosLosEventos = [];
 let categoriaSeleccionada = 'all';
-
 async function cargarEventos() {
     try {
         const respuesta = await fetch(API_URL);
@@ -11,7 +10,10 @@ async function cargarEventos() {
             throw new Error('Error al obtener los eventos');
         }
         todosLosEventos = await respuesta.json();
-        // Si estamos en la página principal
+
+        // Carrusel de fondo (si la página tiene #hero-carousel-track)
+        mostrarCarruselFondo(todosLosEventos);
+
         if (document.querySelector('.events-container')) {
             const hoy = new Date().toISOString().substring(0, 10);
             const proximos = todosLosEventos
@@ -20,7 +22,6 @@ async function cargarEventos() {
                 .slice(0, 3);
             mostrarEventos(proximos);
         } else {
-            // Si estamos en eventos.html
             mostrarEventos(todosLosEventos);
         }
     } catch (error) {
@@ -54,8 +55,8 @@ function mostrarEventos(eventos) {
             ? '../'
             : '';
         imagen.src = evento.RutaImagen
-            ? rutaBase + evento.RutaImagen
-            : rutaBase + 'assets/poster prueba.jpg';
+        ? rutaBase + evento.RutaImagen
+        : rutaBase + 'assets/poster prueba.jpg';
         imagen.alt = evento.Titulo;
         imagen.onerror = () => {
             imagen.onerror = null;
@@ -93,6 +94,52 @@ function mostrarEventos(eventos) {
         contenedor.appendChild(tarjeta);
     });
 }
+
+let intervaloCarruselFondo = null;
+
+function mostrarCarruselFondo(eventos) {
+    const track = document.getElementById('hero-carousel-track');
+    if (!track) return;
+
+    track.replaceChildren();
+
+    if (intervaloCarruselFondo) {
+        clearInterval(intervaloCarruselFondo);
+    }
+
+    const rutaBase = location.pathname.includes('/pantallas/')
+        ? '../'
+        : '';
+
+    const rutaImagen = rutaBase + 'assets/poster prueba.jpg';
+
+    // Tres imágenes visibles y una copia para el desplazamiento
+    for (let i = 0; i < 4; i++) {
+        const img = document.createElement('img');
+        img.src = rutaImagen;
+        img.alt = '';
+        track.appendChild(img);
+    }
+
+    let posicion = 0;
+
+    intervaloCarruselFondo = setInterval(() => {
+        posicion++;
+
+        track.style.transition = 'transform 1s ease';
+        track.style.transform = `translateX(-${posicion * 33.333}%)`;
+
+        if (posicion === 1) {
+            setTimeout(() => {
+                track.style.transition = 'none';
+                track.style.transform = 'translateX(0)';
+                posicion = 0;
+            }, 1000);
+        }
+    }, 4000);
+}
+
+
 
 function formatearFecha(fecha) {
     if (!fecha) return 'Fecha por confirmar';

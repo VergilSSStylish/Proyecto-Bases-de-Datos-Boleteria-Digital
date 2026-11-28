@@ -41,6 +41,68 @@ section {
     transition: color 0.3s ease-in-out;
 }
 
+
+/* Portada principal */
+#landing-section {
+    position: relative;
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    isolation: isolate;
+    padding: 60px 20px !important;
+    background-color: var(--theme-black);
+}
+
+/* Contenedor del carrusel de fondo */
+#hero-carousel {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+#hero-carousel-track {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: 100%;
+    gap: 0;
+    overflow: visible;
+}
+
+
+#hero-carousel-track img {
+    flex: 0 0 33.333333%;
+    width: 33.333333%;
+    height: 100%;
+    min-width: 33.333333%;
+    max-width: 33.333333%;
+    object-fit: cover;
+    opacity: 0.8;
+}
+
+/* Capa oscura sobre las imágenes */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+        to bottom,
+        rgba(12, 16, 20, 0.55),
+        rgba(12, 16, 20, 0.65),
+        rgba(12, 16, 20, 0.85)
+    );
+}
+
+/* Texto encima del carrusel */
+#info-container {
+    position: relative;
+    z-index: 2;
+    color: var(--theme-white);
+}
+
 .nav-links:hover {
     color: var(--theme-blue);
 }

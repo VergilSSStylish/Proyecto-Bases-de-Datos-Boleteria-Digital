@@ -2,10 +2,10 @@
 const express = require('express');
 const router = express.Router();
 const entradasQuerie = require('../queries/entradasQ');
-const verificarToken = require('../servicios/auth');
+
 
 // Obtener entradas de un evento
-router.get('/evento/:idEvento', verificarToken, async (request, response) => {
+router.get('/evento/:idEvento', async (request, response) => {
     const idEvento = Number(request.params.idEvento);
 
     if (!Number.isInteger(idEvento) || idEvento <= 0) {

@@ -82,12 +82,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 //añadi este
         // Mostrar solamente los primeros 3 tickets
+        console.log(tickets);
         tickets.slice(0, 3).forEach(ticket => {
+            
             const tarjeta = document.createElement('div');
             tarjeta.classList.add('payment-item');
 
-            const fecha = ticket.FechaEvento
-                ? new Date(ticket.FechaEvento + 'T00:00:00').toLocaleDateString('es-HN')
+            const fecha = ticket.Fecha
+                ? new Date(ticket.Fecha + 'T00:00:00').toLocaleDateString('es-HN')
                 : 'Fecha no disponible';
 
             tarjeta.innerHTML = `
@@ -95,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <i class="fa-solid fa-ticket payment-icon"></i>
                     <div>
                         <p class="payment-title">
-                            ${ticket.Evento || 'Evento sin nombre'}
+                            ${ticket.Titulo || 'Evento sin nombre'}
                         </p>
                         <span class="payment-expiry">
                             ${fecha} • ${ticket.NombreRecinto || 'Recinto no disponible'}

@@ -10,8 +10,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/landing.css">
-    <script src="../js/eventoscript.js"></script>
-    <link rel="stylesheet" href="css/landing.css">
 </head>
 
 <body>
@@ -48,21 +46,38 @@
     </nav>
 
     <!--sección principal/inicio-->
-    <section id="landing-section" class="py-5 text-center">
-        <div class="container px-4" id="info-container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1 class="py-2 text-center fw-bold">CityBox Tickets</h1>
-                    <h2 class="py-0 text-center fw-bold">Tu acceso a los mejores eventos y conciertos de Honduras.</h2>
-                </div>
-                <div class="col-md-12 px-lg-0">
-                    <div class="info-container mt-4 text-center" style="font-size: 1.5rem;">
-                    <p> Descubre y compra boletos para conciertos, conferencias, recitales, fiestas y todo tipo de eventos.</p>
-                    </div>
+    <section id="landing-section">
+
+    <!-- Carrusel de imágenes de fondo -->
+    <div id="hero-carousel" aria-hidden="true">
+        <div id="hero-carousel-track"></div>
+        <div class="hero-overlay"></div>
+    </div>
+
+    <!-- Textos por delante del carrusel -->
+    <div class="container px-4" id="info-container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="py-2 text-center fw-bold">
+                    CityBox Tickets
+                </h1>
+
+                <h2 class="py-0 text-center fw-bold">
+                    Tu acceso a los mejores eventos y conciertos de Honduras.
+                </h2>
+            </div>
+
+            <div class="col-md-12 px-lg-0">
+                <div class="info-container mt-4 text-center">
+                    <p>
+                        Descubre y compra boletos para conciertos,
+                        conferencias, recitales, fiestas y todo tipo de eventos.
+                    </p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!--sección de eventos-->
     <section id="events-section" class="py-5 text-center">
@@ -110,7 +125,7 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="js/eventoscript.js"></script>
+    <script src="../js/eventoscript.js"></script>
     <script>
         // Con sesión abierta, el botón lleva a la cuenta en lugar del login
         if (localStorage.getItem("token")) {
