@@ -1,3 +1,6 @@
+const parametrosLogin = new URLSearchParams(windows.location.search);
+const urlRedireccion = parametrosLogin.get("redirect");
+
 // Si ya hay una sesión válida, no se muestra el login: se va a Mi cuenta.
 // Así nadie inicia sesión con otro usuario sin antes cerrar la sesión abierta.
 const tokenGuardado = localStorage.getItem("token");

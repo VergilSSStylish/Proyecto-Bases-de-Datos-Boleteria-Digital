@@ -4,32 +4,24 @@ const parametros = new URLSearchParams(window.location.search);
 const idEvento = Number(parametros.get('idEvento'));
 const listaEntradas = document.getElementById('tickets-list');
 const btnAtras = document.getElementById('btn-back');
+const btnCarrito = document.getElementById('btn-add-to-cart');
+const linkCarrito = document.getElementById('link-carrito');
+const cartBadge = document.getElementById('cart-badge');
+
+const seleccionEntradas = {};
+
 
 if (!Number.isInteger(idEvento) || idEvento <=0){
     mostrarMensaje('Evento no valido')
 }else {
     btnAtras.href = `detalleevento.html?idEvento=${idEvento}`;
-    const token = localStorage.getItem('token');
+    cargarEntradas();
 
-    if(!token){
-        mostrarMensaje('Registrate para consultar las entradas')
-    }else{
-        cargarEntradas(token);
-    }
 }
 
-async function cargarEntradas(token) {
+async function cargarEntradas() {
     try {
-        const respuesta = await fetch(`${API_ENTRADAS_URL}/${idEvento}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        if (respuesta.status === 401) {
-            localStorage.removeItem('token');
-            mostrarMensaje('Sesion Expirada - Inicia Sesion nuevamente');
-            return;
-        }
+        const respuesta = await fetch(`${API_ENTRADAS_URL}/${idEvento}`);
 
         if(!respuesta.ok){
             throw new Error('No se pudieron cargar las entradas');
@@ -52,7 +44,13 @@ function mostrarEntradas(entradas){
         return;
     }
 
-    entradas.forEach(entrada => {
+    entradas.forEach((entrada, index) => {
+        const claveZona = entrada.IDZonasRecinto || entrada.IDAsignacion || index;
+        seleccionEntradas[claveZona] = {
+            ...entrada,
+            cantidad: 0
+        };
+
         const tarjeta = document.createElement('div');
         tarjeta.classList.add('ticket-card');
 
@@ -116,7 +114,6 @@ function crearSlctrCantidad(cuposDisp){
 
     btnMenos.addEventListener('click', () => {
         if(cantidad > 0 ) {
-
             cantidad--;
             actualizarCantidad();
         }
@@ -137,6 +134,53 @@ function crearSlctrCantidad(cuposDisp){
 
     selector.append(btnMenos, valor, btnMas);
     return selector;
+}
+
+function actualizarEstadoCarrito() {
+    const totalSeleccionadas = Object.value(seleccionEntradas).reduce(
+        (acum, item) => acum + item.cantidad,
+        0
+    );
+
+    if(cartBadge) {
+        cartBadge.textContent = totalSeleccionadas;
+    }
+
+    if(btnCarrito) {
+        btnCarrito.textContent = totalSeleccionadas === 0;
+    }
+}
+
+if (btnCarrito) {
+    btnCarrito.addEventListener('click', () => {
+        const itemsElegidos = Object.values(seleccionEntradas).filter(item => item.cantidad > 0);
+        if (itemsElegidos.length === 0) return;
+
+        localStorage.setItem('carrito_pendiente', JSON.stringify({
+            idEvento,
+            items: itemsElegidos
+        }));
+
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert('Debes iniciar sesión para continuar al carrito.');
+            window.location.href = 'login.html?redirect=carrito.html';
+            return;
+        }
+
+        window.location.href = 'carrito.html';
+    });
+}
+
+if (linkCarrito) {
+    linkCarrito.addEventListener('click', (e) => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            e.preventDefault();
+            alert('Debes iniciar sesión para ver tu carrito.');
+            window.location.href = 'login.html?redirect=carrito.html';
+        }
+    });
 }
 
 function mostrarMensaje(mensaje) {

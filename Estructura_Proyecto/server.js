@@ -1,18 +1,18 @@
 
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, 'backend', '.env') });
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const express = require('express');
 const cors = require('cors');
 
 const app = express();
 
-const eventosRoutes = require('./backend/routes/eventos');
-const entradasRoutes = require('./backend/routes/entradas');
-const detalleeventoRoutes = require('./backend/routes/detalleevento');
-const usuariosRoutes = require('./backend/routes/usuarios');
+const eventosRoutes = require('./backend/routes/eventos.js');
+const entradasRoutes = require('./backend/routes/entradas.js');
+const detalleeventoRoutes = require('./backend/routes/detalleevento.js');
+const usuariosRoutes = require('./backend/routes/usuarios.js');
 const cuentasRoutes = require('./backend/routes/cuenta.js');
-const ticketsRoutes = require('./backend/routes/tickets');
+const ticketsRoutes = require('./backend/routes/tickets.js');
 
 app.use(cors({
     origin: [
