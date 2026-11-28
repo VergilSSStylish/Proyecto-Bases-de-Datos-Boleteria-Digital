@@ -10,20 +10,18 @@ const cartBadge = document.getElementById('cart-badge');
 
 const seleccionEntradas = {};
 
-
-if (!Number.isInteger(idEvento) || idEvento <=0){
-    mostrarMensaje('Evento no valido')
-}else {
-    btnAtras.href = `detalleevento.html?idEvento=${idEvento}`;
+if (!Number.isInteger(idEvento) || idEvento <= 0) {
+    mostrarMensaje('Evento no válido');
+} else {
+    if (btnAtras) btnAtras.href = `detalleevento.html?idEvento=${idEvento}`;
     cargarEntradas();
-
 }
 
 async function cargarEntradas() {
     try {
         const respuesta = await fetch(`${API_ENTRADAS_URL}/${idEvento}`);
 
-        if(!respuesta.ok){
+        if (!respuesta.ok) {
             throw new Error('No se pudieron cargar las entradas');
         }
 
@@ -31,12 +29,11 @@ async function cargarEntradas() {
         mostrarEntradas(entradas);
     } catch (error) {
         console.error('Error cargando las entradas', error);
-        mostrarMensaje('Error');
+        mostrarMensaje('Error al cargar las entradas');
     }
-    
 }
 
-function mostrarEntradas(entradas){
+function mostrarEntradas(entradas) {
     listaEntradas.replaceChildren();
 
     if (entradas.length === 0) {
@@ -45,7 +42,7 @@ function mostrarEntradas(entradas){
     }
 
     entradas.forEach((entrada, index) => {
-        const claveZona = entrada.IDZonasRecinto || entrada.IDAsignacion || index;
+        const claveZona = entrada.IDZonaPrecio || entrada.IDZonasRecinto || index;
         seleccionEntradas[claveZona] = {
             ...entrada,
             cantidad: 0
@@ -63,14 +60,13 @@ function mostrarEntradas(entradas){
 
         const detalles = document.createElement('span');
         detalles.classList.add('ticket-details');
-        detalles.textContent =
-            entrada.Detalles || 'Sin detalles para mostrar';
+        detalles.textContent = entrada.Detalles || 'Sin detalles para mostrar';
 
         const cupo = Number(entrada.CupoDisponible);
 
         const disponibles = document.createElement('span');
-        disponibles.classList.add('ticket-dispo')
-        disponibles.textContent = cupo > 0 ? `Disponibles: ${cupo}` : 'Agotado' ;
+        disponibles.classList.add('ticket-dispo');
+        disponibles.textContent = cupo > 0 ? `Disponibles: ${cupo}` : 'Agotado';
 
         const precio = document.createElement('p');
         precio.classList.add('ticket-price');
@@ -79,14 +75,17 @@ function mostrarEntradas(entradas){
         info.append(nombre, detalles, disponibles, precio);
         tarjeta.appendChild(info);
 
-        const slctCantidad = crearSlctrCantidad(cupo);
+        // Aquí se pasa claveZona como segundo argumento
+        const slctCantidad = crearSlctrCantidad(cupo, claveZona);
         tarjeta.appendChild(slctCantidad);
 
         listaEntradas.appendChild(tarjeta);
     });
+
+    actualizarEstadoCarrito();
 }
 
-function crearSlctrCantidad(cuposDisp){
+function crearSlctrCantidad(cuposDisp, claveZona) {
     const cantidadMax = Math.max(0, cuposDisp);
     let cantidad = 0;
 
@@ -98,8 +97,7 @@ function crearSlctrCantidad(cuposDisp){
     btnMenos.classList.add('qty-btn');
     btnMenos.textContent = '-';
     btnMenos.disabled = true;
-    btnMenos.setAttribute('aria-label' , 'Restar entrada');
-
+    btnMenos.setAttribute('aria-label', 'Restar entrada');
 
     const valor = document.createElement('span');
     valor.classList.add('qty-value');
@@ -110,26 +108,31 @@ function crearSlctrCantidad(cuposDisp){
     btnMas.classList.add('qty-btn');
     btnMas.textContent = '+';
     btnMas.disabled = cantidadMax === 0;
-    btnMas.setAttribute('aria-label' ,  'Agregar entrada')
+    btnMas.setAttribute('aria-label', 'Agregar entrada');
 
     btnMenos.addEventListener('click', () => {
-        if(cantidad > 0 ) {
+        if (cantidad > 0) {
             cantidad--;
             actualizarCantidad();
         }
     });
 
-    btnMas.addEventListener('click', ()=>{
-        if(cantidad < cantidadMax) {
+    btnMas.addEventListener('click', () => {
+        if (cantidad < cantidadMax) {
             cantidad++;
             actualizarCantidad();
         }
     });
 
-    function actualizarCantidad(){
+    function actualizarCantidad() {
         valor.textContent = cantidad;
         btnMenos.disabled = cantidad === 0;
         btnMas.disabled = cantidad === cantidadMax;
+
+        if (seleccionEntradas[claveZona]) {
+            seleccionEntradas[claveZona].cantidad = cantidad;
+        }
+        actualizarEstadoCarrito();
     }
 
     selector.append(btnMenos, valor, btnMas);
@@ -137,17 +140,17 @@ function crearSlctrCantidad(cuposDisp){
 }
 
 function actualizarEstadoCarrito() {
-    const totalSeleccionadas = Object.value(seleccionEntradas).reduce(
+    const totalSeleccionadas = Object.values(seleccionEntradas).reduce(
         (acum, item) => acum + item.cantidad,
         0
     );
 
-    if(cartBadge) {
+    if (cartBadge) {
         cartBadge.textContent = totalSeleccionadas;
     }
 
-    if(btnCarrito) {
-        btnCarrito.textContent = totalSeleccionadas === 0;
+    if (btnCarrito) {
+        btnCarrito.disabled = totalSeleccionadas === 0;
     }
 }
 

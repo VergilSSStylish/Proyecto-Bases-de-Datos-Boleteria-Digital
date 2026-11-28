@@ -13,6 +13,7 @@ const detalleeventoRoutes = require('./backend/routes/detalleevento.js');
 const usuariosRoutes = require('./backend/routes/usuarios.js');
 const cuentasRoutes = require('./backend/routes/cuenta.js');
 const ticketsRoutes = require('./backend/routes/tickets.js');
+const carritoRoutes = require('./backend/routes/carrito.js');
 
 app.use(cors({
     origin: [
@@ -35,6 +36,7 @@ app.use('/api/detalleevento', detalleeventoRoutes);
 app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/cuenta', cuentasRoutes);
 app.use('/api/tickets', ticketsRoutes);
+app.use('/api/carrito', carritoRoutes);
 
 const PORT = 3000;
 
