@@ -1,13 +1,19 @@
 const conexion = require('../config/conexion');
 
-const obtenerPerfil = async (idUsuario) =>{
-    const [resultado] =  await conexion.query(
-       `SELECT IDUsuario,  
-                 CONCAT_WS(' ', PNombre, PApellido) AS Nombre, Correo
-                FROM Usuario
-                Where IDUsuario = ?`,
-                [idUsuario]
+const obtenerPerfil = async (idUsuario) => {
+    const [resultado] = await conexion.query(
+        `SELECT 
+            u.IDUsuario,
+            CONCAT_WS(' ', u.PNombre, u.PApellido) AS Nombre,
+            u.Correo,
+            tu.Nombre AS Rol
+        FROM Usuario u
+        INNER JOIN TipoUsuario tu
+            ON u.IDTipoUsuario = tu.IDTipoUsuario
+        WHERE u.IDUsuario = ?`,
+        [idUsuario]
     );
+
     return resultado[0];
 };
 

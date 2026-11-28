@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="../css/eventos.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -53,7 +54,7 @@
                 </div>
 
                 <div>
-                    <h2>nombre del admin</h2>
+                    <h2 id="nombre-admin">Cargando...</h2>
                 </div>
 
             </div>
@@ -123,8 +124,9 @@
                 <hr>
 
                 <div class="chart-content">
-                    <canvas id="grafico-ingresos"></canvas>
-                    <p class="empty-message">sin info</p>
+                     <div id="grafico-ingresos" class="barras-container"></div>
+
+                    
                     <!--Aqui van los datos de los ingresos por cada evento, pero ahora solo voy a ponerle sin info -->
                 </div>
 
@@ -140,40 +142,45 @@
                 <hr>
 
                 <div class="chart-content">
-                    <canvas id="grafico-ocupacion"></canvas>
-                    <p class="empty-message">sin info</p> <!--igual que en ingresos por eventos-->
+                    <div id="grafico-ocupacion"></div>
+                     <!--igual que en ingresos por eventos-->
                 </div>
 
             </div>
 
         </section>
+        <section class="admin-card ranking-section">
+                <div class="card-header-admin">
+                  <h3 class="card-title">
+                 <i class="fa-solid fa-trophy"></i>
+                     Top 5 eventos más vendidos
+                 </h3>
+                 </div>
+    <hr>
 
+    <div id="ranking-eventos" class="ranking-list">
+        <p class="empty-message">Cargando ranking...</p>
+    </div>
+</section>
         <!--los proximos eventos que se pueden agregar-->
-        <section class="admin-card">
+        <section class="admin-card proximos-section">
+    <div class="card-header-admin">
+        <h3 class="card-title">
+            <i class="fa-solid fa-calendar-days"></i>
+            Próximos eventos
+        </h3>
 
-            <div class="card-header-admin">
+        <a href="eventosadmin.html" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Crear evento
+        </a>
+    </div>
 
-                <h3 class="card-title">
-                    <i class="fa-solid fa-calendar-days"></i>
-                    Próximos eventos
-                </h3>
+    <hr>
 
-                <a href="eventosadmin.html" class="btn btn-primary">
-                    <i class="fa-solid fa-plus"></i>
-                    Crear evento
-                </a>
-
-            </div>
-
-            <hr>
-
-            <div id="lista-eventos">
-                <p class="empty-message">
-                    sin info
-                </p>
-            </div>
-
-        </section>
+    <div id="lista-eventos" class="proximos-grid">
+        <p class="empty-message">Cargando eventos...</p>
+    </div>
+</section>
 
     </main>
 
@@ -184,7 +191,8 @@
             window.location.href = "login.html";
         });
     </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../js/adminscript.js"></script>
 </body>
 
 </html>

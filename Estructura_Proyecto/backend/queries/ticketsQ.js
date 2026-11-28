@@ -1,7 +1,7 @@
 const conexion = require('../config/conexion');
 
-// Boletos comprados por el usuario, una fila por boleto, con su estado ya calculado por la vista
-const obtenerTicketsUsuario = async (idUsuario) => {
+// boletos comprados por el usuario, una fila por boleto, con su estado ya calculado por la vista
+const obtenerTicketsUsuario = async (idUsuario) => {//se necesita crear una vista o no sé
     const [resultado] = await conexion.query(`
         SELECT B.*,
                D.IDDevoluciones IS NOT NULL AS TieneDevolucion

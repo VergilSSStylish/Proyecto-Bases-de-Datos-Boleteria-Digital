@@ -1,20 +1,39 @@
 const parametrosLogin = new URLSearchParams(window.location.search);
 const urlRedireccion = parametrosLogin.get("redirect");
 
-// Si ya hay una sesión válida, no se muestra el login: se va a Mi cuenta.
-// Así nadie inicia sesión con otro usuario sin antes cerrar la sesión abierta.
 const tokenGuardado = localStorage.getItem("token");
 if (tokenGuardado) {
-    document.body.style.visibility = "hidden"; // evita que el formulario se vea un instante
-    fetch("http://127.0.0.1:3000/api/cuenta/perfil", { headers: { "Authorization": `Bearer ${tokenGuardado}` } })
-        .then(r => {
-            if (r.ok) return window.location.replace("cuenta.html");
-            localStorage.removeItem("token"); // vencido o inválido: se queda en el login
+    document.body.style.visibility = "hidden";
+    fetch("http://127.0.0.1:3000/api/cuenta/perfil", {
+        headers: {
+            "Authorization": `Bearer ${tokenGuardado}`
+        }
+    })
+    .then(async respuesta => {
+        if (!respuesta.ok) {
+            localStorage.removeItem("token");
             document.body.style.visibility = "";
-        })
-        .catch(() => { document.body.style.visibility = ""; });
-}
+            return;
+        }
 
+        const resultado = await respuesta.json();
+
+        const rol = resultado.usuario?.Rol;
+
+        const destinos = {
+            Administrador: "dashboard.html",
+            Cliente: "eventos.html"
+        };
+
+        const destino = destinos[rol] || "eventos.html";
+
+        window.location.replace(destino);
+    })
+    .catch(error => {
+        console.error("Error al verificar la sesión:", error);
+        document.body.style.visibility = "";
+    });
+}
 
 function mostrarLogin() {
     document.getElementById("login-section").style.display = "flex";
