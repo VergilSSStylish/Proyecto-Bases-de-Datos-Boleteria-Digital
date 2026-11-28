@@ -4,7 +4,7 @@ const conexion = require('../config/conexion');
 const obtenerTicketsUsuario = async (idUsuario) => {
     const [resultado] = await conexion.query(`
         SELECT B.*,
-               D.IDDevolucion IS NOT NULL AS TieneDevolucion
+               D.IDDevoluciones IS NOT NULL AS TieneDevolucion
         FROM vw_MisBoletos B
         LEFT JOIN Devoluciones D
             ON D.IDDetalleOrden = B.IDDetalleOrden
