@@ -1,26 +1,25 @@
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CityBox | Eventos</title>
 
     <script src="https://kit.fontawesome.com/21d7f36c31.js" crossorigin="anonymous"></script>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/eventosadmin.css">
 </head>
 
 <body>
 
-    <!--esta es misma barra de navegacion de las otras pantallas del admin -->
+    <!-- misma barra de navegacion de las otras pantallas del admin -->
     <header class="header">
         <nav class="admin-navbar">
-
             <a href="dashboard.html">
                 <img src="../assets/logoblanco.png" alt="CityBox" class="logo">
             </a>
@@ -29,31 +28,26 @@
                 <a href="dashboard.html">Dashboard</a>
                 <a href="usuariosadmin.html">Usuarios</a>
                 <a href="eventosadmin.html" class="active">Eventos</a>
-                <a href="recintosadmin.html">Recintos</a>
+                <a href="recintos.html">Recintos</a>
                 <a href="facturacionadmin.html">Facturación</a>
                 <a href="configuracionadmin.html">
                     <i class="fa-solid fa-gear"></i>
                 </a>
             </div>
-
         </nav>
     </header>
 
     <main class="admin-container">
-
         <h2 class="section-title">Gestión de eventos</h2>
 
         <section class="admin-card">
-
             <div class="card-header-admin">
-
                 <h3 class="card-title">Eventos registrados</h3>
 
-                <button class="btn btn-primary">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCrearEvento">
                     <i class="fa-solid fa-plus"></i>
                     Crear evento
                 </button>
-
             </div>
 
             <hr>
@@ -61,22 +55,492 @@
             <!-- buscador de eventos -->
             <div class="search-container">
                 <i class="fa-solid fa-magnifying-glass"></i>
-
-                <input type="search"
-                       id="buscar-evento"
-                       placeholder="Buscar evento...">
+                <input type="search" id="buscar-evento" placeholder="Buscar evento...">
             </div>
 
             <!-- aqui se van a renderizar los eventos registrados -->
-            <div id="lista-eventos">
+            <div id="lista-eventos" class="lista-eventos-admin">
+
+                <!-- datos de ejemplo, despues se van a traer de la bd -->
+                <div class="event-item">
+                    <div class="event-details">
+                        <span class="event-category">Música</span>
+                        <h4>Noche de Rock</h4>
+
+                        <p>
+                            <i class="fa-solid fa-calendar-days"></i>
+                            Fecha del evento ·
+                            <i class="fa-solid fa-location-dot"></i>
+                            Arena Central
+                        </p>
+
+                        <span class="event-status">Activo</span>
+                    </div>
+
+                    <div class="event-actions">
+                        <button class="btn btn-outline-warning" data-bs-toggle="modal"
+                            data-bs-target="#modalGestionarEntradas">
+                            <i class="fa-solid fa-ticket"></i>
+                            Gestionar entradas
+                        </button>
+
+                        <button class="btn btn-outline-primary" data-bs-toggle="modal"
+                            data-bs-target="#modalEditarEvento">
+                            <i class="fa-solid fa-pen"></i>
+                            Editar
+                        </button>
+
+                        <button class="btn btn-outline-danger" data-bs-toggle="modal"
+                            data-bs-target="#modalEliminarEvento">
+                            <i class="fa-solid fa-trash"></i>
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
 
             </div>
-
         </section>
-
-        <!--aun no la termino pero ya tengo sueño-->
-
     </main>
 
+
+    <!-- modal para crear un nuevo evento -->
+    <div class="modal fade" id="modalCrearEvento" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content admin-modal">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Crear evento</h5>
+                    <button type="button" class="btn-close btn-close-white"
+                        data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form id="form-crear-evento">
+
+                        <div class="mb-3">
+                            <label class="form-label" for="crear-nombre">Nombre del evento</label>
+                            <input type="text" class="form-control" id="crear-nombre"
+                                placeholder="Ingrese el nombre del evento">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="crear-descripcion">Descripción</label>
+                            <textarea class="form-control" id="crear-descripcion" rows="3"
+                                placeholder="Descripción del evento..."></textarea>
+                        </div>
+
+                        <!-- las categorias despues se van a traer de la bd -->
+                        <div class="mb-3">
+                            <label class="form-label">Categorías</label>
+
+                            <div class="categories-container">
+                                <label class="form-check">
+                                    <input type="checkbox" class="form-check-input"
+                                        name="categorias" value="Música">
+                                    Música
+                                </label>
+
+                                <label class="form-check">
+                                    <input type="checkbox" class="form-check-input"
+                                        name="categorias" value="Deportes">
+                                    Deportes
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <!-- los recintos despues se van a traer de la bd -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="crear-recinto">Recinto</label>
+                                <select class="form-select" id="crear-recinto">
+                                    <option value="" selected disabled>Seleccionar recinto</option>
+                                    <option>Arena Central</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="crear-fecha">Fecha</label>
+                                <input type="date" class="form-control" id="crear-fecha">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="crear-hora-inicio">Hora de inicio</label>
+                                <input type="time" class="form-control" id="crear-hora-inicio">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="crear-hora-fin">Hora de finalización</label>
+                                <input type="time" class="form-control" id="crear-hora-fin">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="crear-edad">Restricción de edad</label>
+                                <select class="form-select" id="crear-edad">
+                                    <option>Todo público</option>
+                                    <option>Mayores de 12 años</option>
+                                    <option>Mayores de 18 años</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="crear-vestimenta">Vestimenta</label>
+                                <input type="text" class="form-control" id="crear-vestimenta"
+                                    placeholder="Ej. Casual">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="crear-estado">Estado</label>
+                                <select class="form-select" id="crear-estado">
+                                    <option>Activo</option>
+                                    <option>Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- informacion sobre los acompañantes del evento -->
+                        <div class="row align-items-center">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" id="crear-acompanantes">
+                                    <label class="form-check-label" for="crear-acompanantes">
+                                        Permitir acompañantes
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="crear-max-acompanantes">
+                                    Máximo de acompañantes
+                                </label>
+                                <input type="number" class="form-control" id="crear-max-acompanantes"
+                                    min="0" step="1" placeholder="Cantidad máxima">
+                            </div>
+                        </div>
+
+                        <!-- imagen que se va a mostrar en la cartelera -->
+                        <div class="mb-3">
+                            <label class="form-label" for="crear-imagen">Imagen del evento</label>
+                            <input type="file" class="form-control" id="crear-imagen" accept="image/*">
+                        </div>
+
+                        <p class="capacity-note">
+                            <i class="fa-solid fa-circle-info"></i>
+                            Los precios y la cantidad de boletos se podrán configurar desde gestionar entradas.
+                        </p>
+
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+                    <button type="button" class="btn btn-primary" id="guardar-evento">
+                        Guardar evento
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- modal para editar los datos de un evento que ya existe -->
+    <div class="modal fade" id="modalEditarEvento" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content admin-modal">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar evento</h5>
+                    <button type="button" class="btn-close btn-close-white"
+                        data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <!-- despues se van a cargar los datos del evento seleccionado -->
+                    <form id="form-editar-evento">
+
+                        <div class="mb-3">
+                            <label class="form-label" for="editar-nombre">Nombre del evento</label>
+                            <input type="text" class="form-control" id="editar-nombre"
+                                placeholder="Nombre del evento">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="editar-descripcion">Descripción</label>
+                            <textarea class="form-control" id="editar-descripcion" rows="3"
+                                placeholder="Descripción del evento"></textarea>
+                        </div>
+
+                        <!-- las categorias despues se van a traer de la bd -->
+                        <div class="mb-3">
+                            <label class="form-label">Categorías</label>
+
+                            <div class="categories-container">
+                                <label class="form-check">
+                                    <input type="checkbox" class="form-check-input"
+                                        name="categorias" value="Música">
+                                    Música
+                                </label>
+
+                                <label class="form-check">
+                                    <input type="checkbox" class="form-check-input"
+                                        name="categorias" value="Deportes">
+                                    Deportes
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="editar-recinto">Recinto</label>
+                                <select class="form-select" id="editar-recinto">
+                                    <option value="" selected disabled>Seleccionar recinto</option>
+                                    <option>Arena Central</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="editar-fecha">Fecha</label>
+                                <input type="date" class="form-control" id="editar-fecha">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="editar-hora-inicio">Hora de inicio</label>
+                                <input type="time" class="form-control" id="editar-hora-inicio">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="editar-hora-fin">Hora de finalización</label>
+                                <input type="time" class="form-control" id="editar-hora-fin">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="editar-edad">Restricción de edad</label>
+                                <select class="form-select" id="editar-edad">
+                                    <option>Todo público</option>
+                                    <option>Mayores de 12 años</option>
+                                    <option>Mayores de 18 años</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="editar-vestimenta">Vestimenta</label>
+                                <input type="text" class="form-control" id="editar-vestimenta"
+                                    placeholder="Ej. Casual">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="editar-estado">Estado</label>
+                                <select class="form-select" id="editar-estado">
+                                    <option>Activo</option>
+                                    <option>Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" id="editar-acompanantes">
+                                    <label class="form-check-label" for="editar-acompanantes">
+                                        Permitir acompañantes
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="editar-max-acompanantes">
+                                    Máximo de acompañantes
+                                </label>
+                                <input type="number" class="form-control" id="editar-max-acompanantes"
+                                    min="0" step="1" placeholder="Cantidad máxima">
+                            </div>
+                        </div>
+
+                        <!-- por si se quiere cambiar la imagen del evento -->
+                        <div class="mb-3">
+                            <label class="form-label" for="editar-imagen">Cambiar imagen</label>
+                            <input type="file" class="form-control" id="editar-imagen" accept="image/*">
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+                    <button type="button" class="btn btn-primary" id="guardar-edicion">
+                        Guardar cambios
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- modal para confirmar si se quiere eliminar el evento -->
+    <div class="modal fade" id="modalEliminarEvento" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content admin-modal">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar evento</h5>
+                    <button type="button" class="btn-close btn-close-white"
+                        data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body text-center">
+                    <div class="delete-icon">
+                        <i class="fa-solid fa-trash"></i>
+                    </div>
+
+                    <h6>¿Está seguro de que desea eliminar este evento?</h6>
+
+                    <p class="delete-message">
+                        Esta acción no se puede deshacer
+                    </p>
+
+                    <p class="capacity-note">
+                        Si el evento ya tiene boletos registrados, deberá desactivarse en lugar de eliminarse
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+                    <button type="button" class="btn btn-danger" id="confirmar-eliminar">
+                        Eliminar evento
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- modal para gestionar los precios y la cantidad de boletos por zona -->
+    <div class="modal fade" id="modalGestionarEntradas" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content admin-modal">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Gestionar entradas</h5>
+                    <button type="button" class="btn-close btn-close-white"
+                        data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <!-- informacion del evento seleccionado -->
+                    <div class="mb-4">
+                        <h4 id="nombre-evento-entradas">Noche de Rock</h4>
+                        <p class="event-location">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span id="recinto-evento-entradas">Arena Central</span>
+                        </p>
+                    </div>
+
+                    <!-- capacidad del recinto y cantidad de boletos asignados -->
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-2">
+                            <div class="capacity-card">
+                                <span>Capacidad del recinto</span>
+                                <h3 id="capacidad-recinto">5000</h3>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-2">
+                            <div class="capacity-card">
+                                <span>Boletos asignados</span>
+                                <h3 id="total-boletos-asignados">80</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 class="mb-3">Precios y cupos por zona</h6>
+
+                    <!-- aqui se van a renderizar las zonas que tiene el recinto -->
+                    <div id="lista-zonas-evento">
+
+                        <!-- datos de ejemplo, despues se van a traer de la bd -->
+                        <div class="zone-card">
+                            <div class="zone-header">
+                                <h5>VIP</h5>
+                                <span>Capacidad máxima: 500</span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-2">
+                                    <label class="form-label" for="precio-experiencia">Precio (L)</label>
+                                    <input type="number" class="form-control" id="precio-experiencia"
+                                        min="0" step="0.01" value="2500">
+                                </div>
+
+                                <div class="col-md-6 mb-2">
+                                    <label class="form-label" for="cantidad-experiencia">
+                                        Cantidad de boletos
+                                    </label>
+                                    <input type="number" class="form-control" id="cantidad-experiencia"
+                                        min="0" max="500" step="1" value="80">
+                                </div>
+                            </div>
+
+                            <!-- informacion sobre el estado de los boletos de esta zona -->
+                            <div class="zone-stats">
+                                <div class="zone-stat">
+                                    <span>Boletos vendidos</span>
+                                    <strong class="tickets-sold">5</strong>
+                                </div>
+
+                                <div class="zone-stat">
+                                    <span>Boletos reservados</span>
+                                    <strong class="tickets-reserved">3</strong>
+                                </div>
+
+                                <div class="zone-stat">
+                                    <span>Boletos disponibles</span>
+                                    <strong class="tickets-available">72</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- despues se va a calcular la capacidad que queda sin asignar -->
+                    <div class="capacity-summary">
+                        <span>Capacidad sin asignar</span>
+                        <strong id="capacidad-restante">4920</strong>
+                    </div>
+
+                    <p class="capacity-note">
+                        <i class="fa-solid fa-circle-info"></i>
+                        La cantidad de boletos no puede superar la capacidad máxima de cada zona.
+                    </p>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+                    <button type="button" class="btn btn-primary" id="guardar-entradas">
+                        Guardar cambios
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- script de bootstrap para abrir y cerrar los modales -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 </html>
